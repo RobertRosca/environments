@@ -82,19 +82,49 @@ proc ModulesHelp {} {
 }
 
 module-whatis  "Module loads the mamba environment for cycle 202301"
-if { [ module-info mode load ] } {
-    system    "/gpfs/exfel/sw/software/local/etc/metrics.sh 'exfel_anaconda3/202301'"
-    module load mambaforge/22.11
-    puts stdout    "mamba activate 202301;"
-} elseif { [module-info mode remove] } {
-    puts stderr    "Due to how conda-init works, conda cannot be deactivated through the module system."
-}
+
+prepend-path    PATH /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/bin
+setenv      CONDA_DEFAULT_ENV 202301
+setenv      CONDA_PREFIX /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301
+setenv      CONDA_PROMPT_MODIFIER {(202301) }
+setenv      CONDA_SHLVL 1
+setenv      GSETTINGS_SCHEMA_DIR /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/share/glib-2.0/schemas
+setenv      GSETTINGS_SCHEMA_DIR_CONDA_BACKUP {}
 ```
 
-The lines actually activating the environment are:
+??? note "Environment Variable Modification vs. Conda Init and Activate"
 
-- `module load mambaforge` - load the base environment, the same one you initially activated.
-- `puts stdout "mamba activate 202301;"` - effectively places the string into the users shell and executes it. This will activate the environment. Note the `;` at the end, this must be present.
+    This was previously done with `module load mambaforge` to load the base environment and then `puts stdout "mamba activate 202301;"` to execute the activate command in the users shell, however this process can be slow due to the shared filesystem.
+
+    To avoid this problem the environment variables are modified directly instead, which is faster but comes with the downside of not being able to use the many `conda` commands as they rely on shell functions, and shell functions are not supported in our version of Environment Modules on Maxwell.
+
+For new environments, it is possible to just adjust the paths in the above module file.
+
+This file can be created by writing a small shell script that activates the environment via conda:
+
+```bash
+#!/bin/zsh -l
+
+source /gpfs/exfel/sw/software/mambaforge/22.11/bin/mamba-init
+
+mamba activate 202301
+```
+
+And then using either the the `sh-to-mod` command or the script to convert it to a modulefile:
+
+```bash
+# Script, for older versions of environment modules (<= 3)
+/usr/share/Modules/bin/createmodule.sh ./script.sh
+
+# Command, for newer versions of environment modules
+module sh-to-mod bash ./script.sh
+```
+
+!!! warning "Environment Module Version on Maxwell"
+
+    1. The version of Environment Modules on Maxwell is quite old, and does not support the `sh-to-mod` command. Instead, the `createmodule.sh` script should be used to create the modulefile.
+
+    2. Newer versions ot Environment Modules have a `set-function` command which can be used to set shell functions and reproduce exactly what `conda init`/`conda activate` would do. However, again, this is not supported with the old version of Environment Modules on Maxwell.
 
 ### Setting a Default Modulefile
 
