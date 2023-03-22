@@ -6,6 +6,7 @@ dependencies:
   - python=3.9
   - astropy
   - bokeh
+  - cython
   - dask
   - dask-jobqueue
   - dask-labextension
