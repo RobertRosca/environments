@@ -33,3 +33,4 @@ dependencies = [
 [tool.hatch.envs.default.scripts]
 build = "mkdocs build --clean --strict {args}"
 serve = "mkdocs serve --dev-addr localhost:8000 {args}"
+deploy = "mkdocs gh-deploy --force"

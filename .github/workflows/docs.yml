@@ -19,6 +19,6 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install .
-      - run: mkdocs gh-deploy --force
+      - run: python3 -m pip install hatch
+      - run: hatch run deploy
 
