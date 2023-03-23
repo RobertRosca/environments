@@ -1,6 +1,8 @@
 # Environments
 
-An environment is created per European XFEL experiment cycle, this is done so that previous environments are preserved for reproducibility. The files defining the environments are stored `./environments/${CYCLE}`.
+This repository is stored in the directory `/gpfs/exfel/sw/software/euxfel-environment-management` on Maxwell.
+
+An environment is created per European XFEL experiment cycle, this is done so that previous environments are preserved for reproducibility. The files defining the environments are stored `./environments/${CYCLE}` (note: `./` refers to **this git repository**, not the GPFS software directory).
 
 Each environment directory will have a few files:
 
@@ -14,13 +16,11 @@ Environments exist in an installation of Conda, setting up a new Conda installat
 
 ## Environment Specification Setup
 
-This repository is stored in the directory `/gpfs/exfel/sw/software/euxfel-environment-management` on Maxwell.
-
 ### Creating New Specifications
 
 The first step to creating a new environment is activating an installation, this can be done with `module load exfel mambaforge`. Loading this module will initialise the Conda instance into the `base` environment which provides `grayskull` and `conda-lock` which are used to create the environments.
 
-Once a Conda instance has been activated, you can create a new directory under either `./environments/${CYCLE}` or `./applications/${APPLICATION_NAME}/{APPLICATION_VERSION}` (note: `./` refers to **this git repository**, not the GPFS software directory) depending on whether the environment is intended to be a generic environment users will activate to write and execute their own code, or if the environment exists only to provide a specific application.
+Once a Conda instance has been activated, you can create a new directory under either `./environments/${CYCLE}` or `./applications/${APPLICATION_NAME}/{APPLICATION_VERSION}` depending on whether the environment is intended to be a generic environment users will activate to write and execute their own code, or if the environment exists only to provide a specific application.
 
 If a new **cycle environment** is being created, copy the `base.yml` and `custom.yml` files from the previous cycle, and use those as a starting point.
 
