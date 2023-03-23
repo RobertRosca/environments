@@ -29,6 +29,7 @@ dependencies:
   - plotly
   - pybaselines
   - pyfai
+  - pytest
   - pywavelets
   - pyzmq
   - scikit-beam
