@@ -48,6 +48,8 @@ Once all required dependencies have been added to the dependencies list, carry o
 
 ## Locking and Installing an Environment
 
+First run `module load exfel mambaforge`, this will activate an environment containing environment management tools like `conda-lock`.
+
 The following commands can be used to concretize the environment and update or create `conda-lock.yml`:
 
 ```bash
