@@ -14,6 +14,8 @@ Environments exist in an installation of Conda, setting up a new Conda installat
 
 ## Environment Specification Setup
 
+This repository is stored in the directory `/gpfs/exfel/sw/software/euxfel-environment-management` on Maxwell.
+
 ### Creating New Specifications
 
 The first step to creating a new environment is activating an installation, this can be done with `module load exfel mambaforge`. Loading this module will initialise the Conda instance into the `base` environment which provides `grayskull` and `conda-lock` which are used to create the environments.
