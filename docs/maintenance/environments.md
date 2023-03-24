@@ -54,6 +54,10 @@ First run `module load exfel mambaforge`, this will activate an environment cont
 
 The following commands can be used to concretize the environment and update or create `conda-lock.yml`:
 
+!!! warning inline end
+
+    There is currently a bug causing issues with locking certain packages which can cause the locking to fail, to get around this you can add the `--no-mamba` flag to the first `conda-lock` command. This will slow down the locking process but will let it complete successfully.
+
 ```bash
 conda-lock -f base.yml -f custom.yml --lockfile conda-lock.yml -p linux-64
 conda-lock render -e base -e custom -p linux-64 -k env -k explicit ./conda-lock.yml
