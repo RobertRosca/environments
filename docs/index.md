@@ -8,10 +8,10 @@ Most environments are provided via Mamba (a drop-in replacement for Conda, which
 
 Lock files are provided to ensure that the environments are reproducible, and to allow users to replicate the environments provided on Maxwell locally.
 
-You can find information about what is contained in each environment on the [environments page](./environments.md) of the documentation, or by looking through the [environments directory](./environments).
+You can find a list of the environments in the [Environment List](./environments.md#environment-list) section, and by clicking the name of the environment you can see what it provides. Alternatively you can directly view the environment definition files in the [environments directory](https://github.com/European-XFEL/environments/tree/main/environments).
 
 <!-- This repository also contains 'applications', which are environments that are specific to a particular application. A list of the applications provided can be found on the [applications page](TODO) of the documentation, or by looking through the [applications directory](TODO). -->
 
-If you would like to create your own custom environments, then
+If you would like to create your own custom environments, then check the [Creating Your Own Environments](./environments.md#creating-your-own-environments) section.
 
-Notes on the management of our environments can be found in the [Maintenance](./maintenance/) section. These are intended for the maintainers of the repository, but may be of interest to users wanting to set up their own environments.
+Notes on the management of our environments can be found in the Maintenance section ([Environment Management](./maintenance/environments.md), [Recipe Creation](./maintenance/recipes.md), and [Conda Installations](./maintenance/instances.md)). These are intended for the maintainers of the repository, but may be of interest to users wanting to set up their own environments.
