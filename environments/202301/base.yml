@@ -26,6 +26,7 @@ dependencies:
   - msgpack-python
   - numba
   - numpy
+  - opencv
   - plotly
   - pybaselines
   - pyfai
