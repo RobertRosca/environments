@@ -489,7 +489,7 @@ dependencies:
   - qt-main=5.15.8=h5c52f38_9
   - urllib3=1.26.15=pyhd8ed1ab_0
   - distributed=2023.3.2.1=pyhd8ed1ab_0
-  - ipython=8.12.0=pyh41d4057_0
+  - ipython=8.11.0=pyh41d4057_0
   - libarrow=11.0.0=h93537a5_13_cpu
   - libopencv=4.7.0=py39hbeb1642_2
   - nbclient=0.7.3=pyhd8ed1ab_0
