@@ -24,12 +24,14 @@ dependencies:
   - matplotlib=3.4.2
   - msgpack-numpy
   - msgpack-python
+  - natsort
   - numba
   - numpy
   - opencv
   - plotly
   - pybaselines
   - pyfai
+  - pyopengl
   - pytest
   - pywavelets
   - pyzmq
