@@ -1,0 +1,47 @@
+channels:
+  - file://gpfs/exfel/sw/software/xfel_anaconda3/mambaforge-22.9/conda-bld
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - astropy
+  - bokeh
+  - cython
+  - dask
+  - dask-jobqueue
+  - dask-labextension
+  - fabio
+  - h5py
+  - imageio
+  - iminuit
+  - ipympl
+  - ipython
+  - ipywidgets
+  - jupyter
+  - jupyterlab
+  - kafka-python
+  - lmfit
+  - matplotlib
+  - msgpack-numpy
+  - msgpack-python
+  - natsort
+  - numba
+  - numpy
+  - opencv
+  - plotly
+  - pybaselines
+  - pyfai
+  - pyopengl
+  - pytest
+  - pywavelets
+  - pyzmq
+  - scikit-beam
+  - scikit-image
+  - scikit-learn
+  - scipy
+  - seaborn
+  - silx
+  - spyder
+  - xarray
+  - xraylib
+category: base
