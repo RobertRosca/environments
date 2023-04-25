@@ -52,6 +52,7 @@ dependencies:
   - msgpack-numpy
   - msgpack-python
   - natsort
+  - netcdf4
   - numba
   - numpy
   - opencv
