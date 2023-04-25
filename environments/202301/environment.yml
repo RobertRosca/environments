@@ -1,8 +1,7 @@
-name: 202301
+name: environments
 channels:
-  - file://gpfs/exfel/sw/software/xfel_anaconda3/mambaforge-22.9/conda-bld
+  - file://gpfs/exfel/sw/software/mambaforge/22.11/conda-bld
   - conda-forge
-  - nodefaults
 dependencies:
   - python=3.9
   - brotlipy=0.7.0
@@ -56,6 +55,7 @@ dependencies:
   - numba
   - numpy
   - opencv
+  - papermill
   - plotly
   - pybaselines
   - pyfai

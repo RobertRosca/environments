@@ -28,6 +28,7 @@ dependencies:
   - numba
   - numpy
   - opencv
+  - papermill
   - plotly
   - pybaselines
   - pyfai
