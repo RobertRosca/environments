@@ -1,5 +1,4 @@
 channels:
-  - file://gpfs/exfel/sw/software/xfel_anaconda3/mambaforge-22.9/conda-bld
   - conda-forge
   - defaults
 dependencies:
@@ -19,6 +18,7 @@ dependencies:
   - ipywidgets
   - jupyter
   - jupyterlab
+  - jupyterlab-lsp
   - kafka-python
   - lmfit
   - matplotlib
@@ -44,4 +44,3 @@ dependencies:
   - spyder
   - xarray
   - xraylib
-category: base
