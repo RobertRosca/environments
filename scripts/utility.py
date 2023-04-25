@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import subprocess
+import re
 import json
 from typing import List
 import yaml
@@ -8,23 +9,15 @@ from pathlib import Path
 
 MAXWELL_CONDA = "/software/mamba/2022.06/bin/conda"
 
+# Set of packages to extract, supports regex
 PINNED = {
     "dask",
     "dask-core",
     "dask-labextension",
+    "ipy.*",
     "ipykernel",
-    "ipympl",
-    "ipython",
-    "ipywidgets",
-    "jupyter",
-    "jupyterlab",
-    "jupyterlab-git",
-    "jupyterlab-h5web",
-    "jupyterlab_code_formatter",
-    "jupyterlab_widgets",
-    "matplotlib",
-    "matplotlib-base",
-    "matplotlib-inline",
+    "jupyter.*",
+    "matplotlib.*",
     "spyder",
     "spyder-kernels",
 }
@@ -36,15 +29,16 @@ def dump_desy_environment():
             MAXWELL_CONDA,
             "env",
             "export",
+            "-p",
+            "/software/mamba/2022.06",
             "--json",
         ]
     ).decode("utf-8")
 
     environment = json.loads(export)
-
     dependencies = environment["dependencies"]
     packages_split = [p.split("=") for p in dependencies if isinstance(p, str)]
-    packages = {s[0]: s[1] for s in packages_split}
+    packages = {s[0]: "=".join(s[1:]) for s in packages_split}
 
     with open("0-desy-pinned.yml", "w") as f:
         f.write("name: desy-pinned\n")
@@ -54,7 +48,10 @@ def dump_desy_environment():
 
         f.write("dependencies:\n")
         for package, version in packages.items():
-            if package in PINNED and version:
+            is_in = package in PINNED
+            re_match = any(re.search(pin, package) for pin in PINNED)
+            print(package, is_in, re_match)
+            if (is_in or re_match) and version:
                 f.write(f"  - {package}={version}\n")
 
 
