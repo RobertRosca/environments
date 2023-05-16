@@ -13,8 +13,8 @@ theme:
   features:
     - announce.dismiss
     - content.tabs.link
-    - navigation.indexes  # section index pages
-    - navigation.top  # back to top button
+    - navigation.indexes # section index pages
+    - navigation.top # back to top button
     - navigation.tracking
     - navigation.instant
     - search.highlight
@@ -33,15 +33,15 @@ extra_css:
 
 nav:
   - index.md
-  - Using Environments: 'environments.md'
+  - Using Environments: "environments.md"
   - What's Available:
-    - Environment List: 'environments/'
-    - Module List: 'modules/'
-    - Recipe List: 'recipes/'
+      - Environment List: "environments/"
+      - Module List: "modules/"
+      - Recipe List: "recipes/"
   - Maintenance:
-    - Environment Management: 'maintenance/environments.md'
-    - Recipe Creation: 'maintenance/recipes.md'
-    - Conda Installations: 'maintenance/instances.md'
+      - Environment Management: "maintenance/environments.md"
+      - Recipe Creation: "maintenance/recipes.md"
+      - Conda Installations: "maintenance/instances.md"
 
 plugins:
   - search

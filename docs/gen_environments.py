@@ -9,10 +9,15 @@ environments = (Path(__file__).parent.parent / "environments").glob("*")
 
 ENVIRONMENTS_DICT = {}
 
+FILES_SOURCE = ("0-desy-pinned.yml", "1-base.yml", "2-custom.yml")
+FILES_GENERATED = ("environment.yml", "environment.lock.yml")
+FILES = set(FILES_SOURCE) | set(FILES_GENERATED)
+
 
 def generate_table(packages, lock_dict):
     text = "| Package | Version |\n" + "| --- | --- |\n"
     for package in packages:
+        package = package.split("=")[0]
         version = lock_dict.get(package, package.split("=")[-1])
         text += f"| {package} | {version} |\n"
 
@@ -22,15 +27,16 @@ def generate_table(packages, lock_dict):
 
 for environment in environments:
     name = environment.name
-    files = {f: environment / f for f in ("base.yml", "custom.yml", "conda-lock.yml")}
+    files = {f: environment / f for f in FILES}
     files = {k: v for k, v in files.items() if v.exists()}
 
     page = f"environments/{name}.md"
 
-    yamls = {k: yaml.safe_load(v.read_text()) for k, v in files.items() if v.exists()}
+    yamls = {k: yaml.safe_load(v.read_text()) for k, v in files.items()}
 
     lock_dict = {
-        dep["name"]: dep["version"] for dep in yamls["conda-lock.yml"]["package"]
+        dep.split("=")[0]: "=".join(dep.split("=")[1:])
+        for dep in yamls["environment.lock.yml"]["dependencies"]
     }
 
     page_rel = Path(page).relative_to("environments")
@@ -39,12 +45,12 @@ for environment in environments:
     with mkdocs_gen_files.open(page, "w") as f:
         text = f"# {name}\n"
 
-        for category in ["base.yml", "custom.yml"]:
+        for category in FILES_SOURCE:
             if category in yamls:
                 text += f"\n## {category}\n"
                 text += generate_table(yamls[category]["dependencies"], lock_dict)
 
-        text += "## conda-lock.yml\n"
+        text += "## environment.lock.yml\n"
         text += "| Package | Version |\n"
         text += "| --- | --- |\n"
         for package, version in lock_dict.items():
