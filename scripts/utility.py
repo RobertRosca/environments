@@ -94,7 +94,7 @@ def merge_environment_files(files: List[str], name: str):
     with open("environment.yml", "w") as f:
         f.write(f"name: {name}\n")
         f.write(
-            "channels:\n  - conda-forge\n  - file://gpfs/exfel/sw/software/xfel_anaconda3/mambaforge-22.9/conda-bld\n"
+            "channels:\n  - conda-forge\n  - file://gpfs/exfel/sw/software/mambaforge/22.11/conda-bld\n"
         )
         f.write("dependencies:\n")
         for package, version in final_package_versions.items():
