@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+
 import argparse
-import subprocess
-import re
 import json
-from typing import List
-import yaml
+import re
+import subprocess
 from pathlib import Path
+from typing import List
+
+import yaml
 
 MAXWELL_CONDA = "/software/mamba/2022.06/bin/conda"
 
@@ -132,7 +134,7 @@ if __name__ == "__main__":
     )
 
     merge_default_list = ["0-desy-pinned.yml", "1-base.yml", "2-custom.yml"]
-    merge_default_name = Path.cwd().parent.name
+    merge_default_name = Path.cwd().name
     merge_parser = subparsers.add_parser(
         "merge", help="Merge multiple environment.yml files into merged-environment.yml"
     )
