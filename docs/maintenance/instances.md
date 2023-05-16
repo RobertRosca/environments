@@ -78,7 +78,7 @@ Now running `module load mambaforge/22.11` will activate the installation.
 
 ### Required Packages
 
-The Conda installation should only contain the packages required to create and manage the environments. This means that the `base` environment should only contain `grayskull`, `conda-lock`, `boa` (`mambabuild`) and `git`.
+The Conda installation should only contain the packages required to create and manage the environments. This means that the `base` environment should only contain `grayskull`, `boa` (`mambabuild`) and `git`.
 
 !!! info
 
@@ -90,7 +90,7 @@ So, with the Conda installation activated, run the following commands:
 
 ```bash
 mamba env activate base
-mamba install -c conda-forge grayskull conda-lock boa git
+mamba install -c conda-forge grayskull boa git
 ```
 
 ## Summary
@@ -107,6 +107,6 @@ bash Miniforge3.sh -b -p /gpfs/exfel/sw/software/mambaforge/22.11
 source /gpfs/exfel/sw/software/mambaforge/22.11/bin/mamba-init
 mamba env activate base
 # Add required base packages
-mamba install -c conda-forge grayskull conda-lock boa git
+mamba install -c conda-forge grayskull boa git
 # Create module file in /gpfs/exfel/sw/xfel_modules/mambaforge/
 ```
