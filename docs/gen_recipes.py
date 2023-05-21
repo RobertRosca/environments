@@ -15,7 +15,7 @@ for recipe in recipes:
     nav[page_rel.with_suffix("").parts] = page_rel  # type: ignore
 
     with mkdocs_gen_files.open(page, "w") as f:
-        text = f"# {name}\n"
+        text = f"# `{name}`\n"
         text += f"```yaml\n{recipe.read_text()} \n```\n"
         f.write(text)
 
