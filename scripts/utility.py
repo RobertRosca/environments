@@ -13,9 +13,6 @@ MAXWELL_CONDA = "/software/mamba/2022.06/bin/conda"
 
 # Set of packages to extract, supports regex
 PINNED = {
-    "dask",
-    "dask-core",
-    "dask-labextension",
     "ipy.*",
     "ipykernel",
     "jupyter.*",
