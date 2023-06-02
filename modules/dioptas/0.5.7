@@ -1,0 +1,17 @@
+#%Module 1.0
+#
+#  Dioptas 0.5.7
+#
+proc ModulesHelp {} {
+    puts stdout     " "
+    puts stdout     " Dioptas: A GUI program for fast analysis of powder X-ray diffraction Images. "
+    puts stdout     " "
+}
+
+module-whatis  "Dioptas: A GUI program for fast analysis of powder X-ray diffraction Images."
+
+if { [ module-info mode load ] } {
+    system "/gpfs/exfel/sw/software/local/etc/metrics.sh 'dioptas/0.5.3a'"
+}
+
+prepend-path PATH /gpfs/exfel/sw/software/xfel_applications/dioptas/dioptas-v0.5.7/bin
