@@ -5,7 +5,7 @@
 module-whatis  "Setup for CrystFEL 0.6.3"
 
 
-if { [ module-info mode load ] }
+if { [ module-info mode load ] } {
     system "/gpfs/exfel/sw/software/local/etc/metrics.sh 'crystfel/0.6.3'"
     puts                  stdout           "source /gpfs/exfel/sw/software/ccp4/ccp4-7.1/bin/ccp4.setup-sh;"
     prepend-path          PATH             /gpfs/exfel/sw/software/ccp4/ccp4-7.1/bin
