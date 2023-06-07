@@ -24,17 +24,17 @@ DESY and EuXFEL maintain multiple software environments to facilitate user analy
 
 EuXFEL maintained modules are in their own scope, which can be activated by running `module load exfel`. Once that command has been run, if you use `module list` you will see that many new modules are now available to load.
 
-The main module of interest for Python users will be `exfel_python`, which will load a python environment with many commonly used packages that we expect will be required for data analysis, as well as our own packages. A full list of software available within an environment is available on the documentation pages for that environment (see a list in the [Environment List](#environment-list) section).
+The main module of interest for Python users will be `exfel-python`, which will load a python environment with many commonly used packages that we expect will be required for data analysis, as well as our own packages. A full list of software available within an environment is available on the documentation pages for that environment (see a list in the [Environment List](#environment-list) section).
 
 To facilitate reproducibility we create a new environment for every cycle. This way, if you want to use the same software as a previous cycle, or if the current cycle causes issues with your code, you can easily switch to a previous environment.
 
-The current cycle is always available as `exfel_python`, and previous cycles are available as `exfel_python/$CYCLE`, where `$CYCLE` is the cycle number. For example, to load the environment for cycle 202301, you can run:
+The current cycle is always available as `exfel-python`, and previous cycles are available as `exfel-python/$CYCLE`, where `$CYCLE` is the cycle number. For example, to load the environment for cycle 202301, you can run:
 
 ```bash
-module load exfel exfel_python/202301
+module load exfel exfel-python/202301
 ```
 
-## Using our Mamba (Conda) Environments
+## Using our Python Environments
 
 !!! warning "Do **not** allow `conda init` to modify shell rc files!"
 
@@ -92,7 +92,7 @@ This will create a new environment called `myenv` with Python 3.9 installed, whi
 If you want to create an environment that is based on another environment, you can use the `--clone` option. For example, if you want to use the environment provided by the DA team at European XFEL, but with a few additional packages or with different versions of packages, then you can do the following:
 
 ```bash
-module load exfel exfel_python/202301
+module load exfel exfel-python/202301
 mamba create --clone 202301 --name my-202301
 mamba activate my-202301
 mamba install ...
@@ -109,10 +109,10 @@ This will create a new environment called `my-202301` which is identical to `202
     - This is not an officially supported feature of `conda` environments, it will *probably* work but you may run into issues
     - Changes to the base environment may break the derived environment, e.g. if a package is removed/updated in the base environment, it will change for the derived environment as well, which may break it
 
-If you want to create an environment that is based on another environment, but you do not want to clone the entire environment, you can use the `--system-site-packages` option with python's `venv`. For example, to create a new environment called `myenv2` that is based on `exfel_python`:
+If you want to create an environment that is based on another environment, but you do not want to clone the entire environment, you can use the `--system-site-packages` option with python's `venv`. For example, to create a new environment called `myenv2` that is based on `exfel-python`:
 
 ```bash
-module load exfel exfel_python/202301
+module load exfel exfel-python/202301
 python3 -m venv --system-site-packages ./my-202301
 source ./my-202301/bin/activate
 pip install ...
@@ -126,7 +126,7 @@ This will create a new environment called `my-202301` which is able to load pack
 
     This approach is not recommended, as it is possible to get an inconsistent environment where your local packages are not compatible with the loaded environment.
 
-If you want to add a package to an existing environment, it's possible to load the environment via `module load exfel exfel_python`, and then run `pip install ...` commands.
+If you want to add a package to an existing environment, it's possible to load the environment via `module load exfel exfel-python`, and then run `pip install ...` commands.
 
 This will install the package into your local `~/.local/lib/python3.X/site-packages` directory, any packages in this directory will be importable when you activate the environment.
 
@@ -207,7 +207,7 @@ One way to use the environment in a SLURM batch script is to activate the releva
 unset LD_PRELOAD
 source /etc/profile.d/modules.sh  # Enable module commands
 
-module load exfel exfel_python/202301
+module load exfel exfel-python/202301
 
 # Commands here
 ```

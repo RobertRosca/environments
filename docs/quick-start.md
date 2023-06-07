@@ -10,8 +10,8 @@ $ ssh $USER@max-exfl-display.desy.de
 $ module load exfel  # Enable our modules
 - EXFEL modulepath enabled
 
-$ module load exfel_python  # Load current python environment
-Loading exfel_python/202301
+$ module load exfel-python  # Load current python environment
+Loading exfel-python/202301
   Loading requirement: mambaforge/22.11
 
 $ python3 ...

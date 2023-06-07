@@ -90,7 +90,7 @@ There are a few ways to create a module file which enables a conda environment:
 
 ### 1. Adapt Existing Modulefile
 
-If this is a new cycle environment (or any environment based on `mambaforge`) then you can copy an existing modulefile and adjust the paths. For example, the current `exfel_python/202301` modulefile does:
+If this is a new cycle environment (or any environment based on `mambaforge`) then you can copy an existing modulefile and adjust the paths. For example, the current `exfel-python/202301` modulefile does:
 
 ```tcl
 #%Module 1.0

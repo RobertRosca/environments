@@ -1,1 +1,13 @@
-../mamba/202301
+#%Module 1.0
+proc ModulesHelp {} {
+    puts stdout    "Mamba environment for cycle 202301"
+}
+
+module-whatis  "Module loads the mamba environment for cycle 202301"
+
+if { [ module-info mode load ] } {
+    system    "/gpfs/exfel/sw/software/local/etc/metrics.sh 'exfel_anaconda3/202301'"
+    puts stderr "Please use the `exfel-python` module instead."
+}
+
+module load exfel-python/202301
