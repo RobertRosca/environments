@@ -207,7 +207,7 @@ One way to use the environment in a SLURM batch script is to activate the releva
 unset LD_PRELOAD
 source /etc/profile.d/modules.sh  # Enable module commands
 
-module load exfel mamba/202301
+module load exfel exfel_python/202301
 
 # Commands here
 ```
