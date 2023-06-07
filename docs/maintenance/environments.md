@@ -41,7 +41,7 @@ Otherwise create a standard Conda environment file defining the channels and the
 ```yaml
 channels:
   - conda-forge
-  - defaults
+  - nodefaults
 dependencies:
   - numpy  # for example
 ```
@@ -88,137 +88,70 @@ If you are updating an environment, the modulefile does not require changes. If 
 
 There are a few ways to create a module file which enables a conda environment:
 
-1. Prepend to `PATH` to make user commands call the `python` executable in the environment. This is the most basic approach, but can fail if more environment variables have to be adjusted, and this will cause `conda` commands to fail.
+### 1. Adapt Existing Modulefile
 
-    ??? note "Example module file"
-
-        ```tcl
-        #%Module 1.0
-        proc ModulesHelp {} {
-            puts stdout    "Mamba environment for cycle 202301"
-        }
-
-        module-whatis  "Module loads the mamba environment for cycle 202301"
-
-        prepend-path    PATH /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/bin
-        setenv      CONDA_DEFAULT_ENV 202301
-        setenv      CONDA_PREFIX /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301
-        setenv      CONDA_PROMPT_MODIFIER {(202301) }
-        setenv      CONDA_SHLVL 1
-        setenv      GSETTINGS_SCHEMA_DIR /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/share/glib-2.0/schemas
-        setenv      GSETTINGS_SCHEMA_DIR_CONDA_BACKUP {}
-        ```
-
-2. Use `system` calls to directly call `conda activate ...;` in the user shell. This works as well as normally calling the activate commands, but can cause large amounts of latency due to the activate command accessing a lot of files.
-
-    ??? note "Example module file"
-
-        ```tcl
-        #%Module 1.0
-        proc ModulesHelp {} {
-            puts stdout    "Mamba environment for cycle 202301"
-        }
-
-        module-whatis  "Module loads the mamba environment for cycle 202301"
-
-        module load mambaforge
-
-        # NOTE: the final semicolon is required
-        puts stdout "mamba activate 202301;"
-        ```
-
-3. Use `module sh-to-mod` to convert a shell script to module file. This is the best approach - it works as well as the activate commands but without the additional latency.
-
-The `sh-to-mod` approach requires writing a basic script which sets up the environment as you require it, you can then use the `sh-to-mod` command to automatically create a module file which will apply the required modifications to the environment.
-
-For example the following script initialises `mamba` and then activates the `202301` environment:
-
-```bash
-#!/bin/zsh -l
-
-source /gpfs/exfel/sw/software/mambaforge/22.11/bin/mamba-init
-
-mamba activate 202301
-```
-
-Now by calling `sh-to-mod` you can convert this script into a module file:
-
-```bash
-module sh-to-mod bash ./script.sh
-```
-
-Which creates the following module file:
+If this is a new cycle environment (or any environment based on `mambaforge`) then you can copy an existing modulefile and adjust the paths. For example, the current `exfel_python/202301` modulefile does:
 
 ```tcl
 #%Module 1.0
+proc ModulesHelp {} {
+    puts stdout    "Mamba environment for cycle 202301"
+}
+
+module-whatis  "Module loads the mamba environment for cycle 202301"
+
+module load mambaforge
+
 prepend-path    PATH /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/bin
-setenv      CONDA_DEFAULT_ENV 202301
-setenv      CONDA_PREFIX /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301
-setenv      CONDA_PROMPT_MODIFIER {(202301) }
-setenv      CONDA_SHLVL 1
-setenv      GSETTINGS_SCHEMA_DIR /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/share/glib-2.0/schemas
-setenv      GSETTINGS_SCHEMA_DIR_CONDA_BACKUP {}
-set-function    __conda_activate {
-    if [ -n "${CONDA_PS1_BACKUP:+x}" ]; then
-        PS1="$CONDA_PS1_BACKUP";
-        \unset CONDA_PS1_BACKUP;
-    fi;
-    \local ask_conda;
-    ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix "$@")" || \return;
-    \eval "$ask_conda";
-    __conda_hashr}
-set-function    __conda_exe {
-    ( "$CONDA_EXE" $_CE_M $_CE_CONDA "$@" )}
-set-function    __conda_hashr {
-    if [ -n "${ZSH_VERSION:+x}" ]; then
-        \rehash;
-    else
-        if [ -n "${POSH_VERSION:+x}" ]; then
-            :;
-        else
-            \hash -r;
-        fi;
-    fi}
-set-function    __conda_reactivate {
-    \local ask_conda;
-    ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix reactivate)" || \return;
-    \eval "$ask_conda";
-    __conda_hashr}
-set-function    __mamba_exe {
-    ( \local MAMBA_CONDA_EXE_BACKUP=$CONDA_EXE;
-    \local MAMBA_EXE=$(\dirname "${CONDA_EXE}")/mamba;
-    "$MAMBA_EXE" $_CE_M $_CE_CONDA "$@" )}
-set-function    conda {
-    \local cmd="${1-__missing__}";
-    case "$cmd" in
-        activate | deactivate)
-            __conda_activate "$@"
-        ;;
-        install | update | upgrade | remove | uninstall)
-            __conda_exe "$@" || \return;
-            __conda_reactivate
-        ;;
-        *)
-            __conda_exe "$@"
-        ;;
-    esac}
-set-function    mamba {
-    \local cmd="${1-__missing__}";
-    case "$cmd" in
-        activate | deactivate)
-            __conda_activate "$@"
-        ;;
-        install | update | upgrade | remove | uninstall)
-            __mamba_exe "$@" || \return;
-            __conda_reactivate
-        ;;
-        *)
-            __mamba_exe "$@"
-        ;;
-    esac}
+prepend-path    XML_CATALOG_FILES file {///gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/etc/xml/catalog file} ///etc/xml/catalog
+setenv          CONDA_DEFAULT_ENV 202301
+setenv          CONDA_PREFIX /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301
+setenv          CONDA_PROMPT_MODIFIER {(202301) }
+setenv          CONDA_SHLVL 1
+setenv          GSETTINGS_SCHEMA_DIR /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/share/glib-2.0/schemas
+setenv          GSETTINGS_SCHEMA_DIR_CONDA_BACKUP {}
 ```
 
-A few modifications should be made to this:
+Copying this file and adjusting any relevant paths/names is typically enough to get a working modulefile.
+
+!!! note
+
+    Some module files may contain an additional guard case:
+
+    ```tcl
+    if {[info commands set-function] eq {set-function}} {
+      ...
+    }
+    ```
+
+    This checks if a command (in this case `set-function`) exists, it was required as the default module version on Maxwell was very old and did not support some functions like setting shell functions.
+
+    Now that environment modules was updated this is no longer required, but may still be present in some files.
+
+### 2. Create Via `sh-to-mod`
+
+Once the `mambaforge` module is loaded, `conda activate` commands can be used as normal as the module sets the required shell functions. This means that we can start up a shell, load `mambaforge`, create a basic activation script which does `conda activate ...`, and then use `sh-to-mod` to convert that script into a module file:
+
+```shell
+$ module load exfel mambaforge
+
+$ export TERM=xterm-256color  # some of the changes made by activation depend on an interactive coloured terminal so make sure TERM is set
+
+$ echo "conda activate 202301" > "activate"
+
+$ module sh-to-mod bash ./activate
+
+#%Module
+prepend-path    PATH /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/bin
+prepend-path    XML_CATALOG_FILES file {///gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/etc/xml/catalog file} ///etc/xml/catalog
+setenv          CONDA_DEFAULT_ENV 202301
+setenv          CONDA_PREFIX /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301
+setenv          CONDA_PROMPT_MODIFIER {(202301) }
+setenv          CONDA_SHLVL 1
+setenv          GSETTINGS_SCHEMA_DIR_CONDA_BACKUP /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/share/glib-2.0/schemas
+```
+
+This module file is enough to activate a conda environment assuming that `mambaforge` is already loaded. Given that's not necessarily the case there are a few modifications that should be made to this file:
 
 1. Add help and description:
 
@@ -250,23 +183,13 @@ A few modifications should be made to this:
             }
     ```
 
-!!! note
+Note that this will *semi* work even without `module load mambaforge`. Python will work correctly as will its dependencies however `conda`/`mamba` commands will not work.
 
-    Some module files may contain an additional guard case:
+### 3. Direct `system` Calls
 
-    ```tcl
-    if {[info commands set-function] eq {set-function}} {
-      ...
-    }
-    ```
+Use `system` calls to directly call `conda activate ...;` in the user shell. This works as well as normally calling the activate commands, but can cause **large amounts of latency** due to the activate command accessing a lot of files.
 
-    This checks if a command (in this case `set-function`) exists, it was required as the default module version on Maxwell was very old and did not support some functions like setting shell functions.
-
-    Now that environment modules was updated this is no longer required, but may still be present in some files.
-
-After all of this you can end up with a rather large and complex module file, however  keep in mind that 99% of it was generated by the `sh-to-mod` command. For example here is the module file for the `202301` environment, which has both `sh` and `fish` support and the guard for `set-function` being present:
-
-??? example
+??? note "Example module file"
 
     ```tcl
     #%Module 1.0
@@ -276,152 +199,10 @@ After all of this you can end up with a rather large and complex module file, ho
 
     module-whatis  "Module loads the mamba environment for cycle 202301"
 
-    if { [ module-info mode load ] } {
-        system    "/gpfs/exfel/sw/software/local/etc/metrics.sh 'mamba/202301'"
-        puts stderr "Default module version changed from 1.1.2 to 202301"
-        puts stderr "Use `module load exfel_anaconda3/1.1.2` to revert to previous version if required"
-        puts stderr "For more information on the new approach to environment management see the documentation here: https://european-xfel.github.io/environments/"
-    }
+    module load mambaforge
 
-    prepend-path    PATH /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/bin
-    setenv      CONDA_DEFAULT_ENV 202301
-    setenv      CONDA_PREFIX /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301
-    setenv      CONDA_PROMPT_MODIFIER {(202301) }
-    setenv      CONDA_SHLVL 1
-    setenv      GSETTINGS_SCHEMA_DIR /gpfs/exfel/sw/software/mambaforge/22.11/envs/202301/share/glib-2.0/schemas
-    setenv      GSETTINGS_SCHEMA_DIR_CONDA_BACKUP {}
-
-    if {[info commands set-function] eq {set-function}} {
-        switch -- [module-info shelltype] {
-            sh {
-                set-function    __conda_activate {
-                    if [ -n "${CONDA_PS1_BACKUP:+x}" ]; then
-                        PS1="$CONDA_PS1_BACKUP";
-                        \unset CONDA_PS1_BACKUP;
-                    fi;
-                    \local ask_conda;
-                    ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix "$@")" || \return;
-                    \eval "$ask_conda";
-                    __conda_hashr}
-                set-function    __conda_exe {
-                    ( "$CONDA_EXE" $_CE_M $_CE_CONDA "$@" )}
-                set-function    __conda_hashr {
-                    if [ -n "${ZSH_VERSION:+x}" ]; then
-                        \rehash;
-                    else
-                        if [ -n "${POSH_VERSION:+x}" ]; then
-                            :;
-                        else
-                            \hash -r;
-                        fi;
-                    fi}
-                set-function    __conda_reactivate {
-                    \local ask_conda;
-                    ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix reactivate)" || \return;
-                    \eval "$ask_conda";
-                    __conda_hashr}
-                set-function    __mamba_exe {
-                    ( \local MAMBA_CONDA_EXE_BACKUP=$CONDA_EXE;
-                    \local MAMBA_EXE=$(\dirname "${CONDA_EXE}")/mamba;
-                    "$MAMBA_EXE" $_CE_M $_CE_CONDA "$@" )}
-                set-function    conda {
-                    \local cmd="${1-__missing__}";
-                    case "$cmd" in
-                        activate | deactivate)
-                            __conda_activate "$@"
-                        ;;
-                        install | update | upgrade | remove | uninstall)
-                            __conda_exe "$@" || \return;
-                            __conda_reactivate
-                        ;;
-                        *)
-                            __conda_exe "$@"
-                        ;;
-                    esac}
-                set-function    mamba {
-                    \local cmd="${1-__missing__}";
-                    case "$cmd" in
-                        activate | deactivate)
-                            __conda_activate "$@"
-                        ;;
-                        install | update | upgrade | remove | uninstall)
-                            __mamba_exe "$@" || \return;
-                            __conda_reactivate
-                        ;;
-                        *)
-                            __mamba_exe "$@"
-                        ;;
-                    esac}
-            }
-            fish {
-                complete    fish conda {--no-files -a '(__fish_conda_commands)' -n __fish_conda_needs_command}
-                complete    fish conda {--no-files -a '(__fish_conda_env_commands)' -n '__fish_conda_using_command env'}
-                complete    fish conda {--no-files -a '(__fish_conda_envs)' -n '__fish_conda_using_command activate'}
-                complete    fish conda {--no-files -a '(__fish_conda_packages)' -n '__fish_conda_using_command remove'}
-                complete    fish conda {--no-files -a '(__fish_conda_packages)' -n '__fish_conda_using_command uninstall'}
-                complete    fish conda {--no-files -a '(__fish_conda_packages)' -n '__fish_conda_using_command update'}
-                complete    fish conda {--no-files -a '(__fish_conda_packages)' -n '__fish_conda_using_command upgrade'}
-                set-function    __conda_add_prompt {
-                    if set -q CONDA_PROMPT_MODIFIER
-                        set_color -o green
-                        echo -n $CONDA_PROMPT_MODIFIER
-                        set_color normal
-                    end}
-                set-function    __fish_conda_commands {
-                    string replace -r '.*_([a-z]+)\.py$' '$1' $_CONDA_ROOT/lib/python*/site-packages/conda/cli/main_*.py
-                    for f in $_CONDA_ROOT/bin/conda-*
-                        if test -x "$f" -a ! -d "$f"
-                            string replace -r '^.*/conda-' '' "$f"
-                        end
-                    end
-                    echo activate
-                    echo deactivate}
-                set-function    __fish_conda_env_commands {
-                    string replace -r '.*_([a-z]+)\.py$' '$1' $_CONDA_ROOT/lib/python*/site-packages/conda_env/cli/main_*.py}
-                set-function    __fish_conda_envs {
-                    conda config --json --show envs_dirs | python -c "import json, os, sys; from os.path import isdir, join; print('\n'.join(d for ed in json.load(sys.stdin)['envs_dirs'] if isdir(ed) for d in os.listdir(ed) if isdir(join(ed, d))))"}
-                set-function    __fish_conda_needs_command {
-                    set cmd (commandline -opc)
-                    if [ (count $cmd) -eq 1 -a $cmd[1] = conda ]
-                        return 0
-                    end
-                    return 1}
-                set-function    __fish_conda_packages {
-                    conda list | awk 'NR > 3 {print $1}'}
-                set-function    __fish_conda_using_command {
-                    set cmd (commandline -opc)
-                    if [ (count $cmd) -gt 1 ]
-                        if [ $argv[1] = $cmd[2] ]
-                            return 0
-                        end
-                    end
-                    return 1}
-                set-function    __fish_prompt_orig {
-                }
-                set-function    __fish_right_prompt_orig {
-                    }
-                set-function    conda {
-                    set -l CONDA_EXE /gpfs/exfel/sw/software/mambaforge/22.11/bin/conda
-                    if [ (count $argv) -lt 1 ]
-                        $CONDA_EXE
-                    else
-                        set -l cmd $argv[1]
-                        set -e argv[1]
-                        switch $cmd
-                            case activate deactivate
-                                eval ($CONDA_EXE shell.fish $cmd $argv)
-                            case install update upgrade remove uninstall
-                                $CONDA_EXE $cmd $argv
-                                and eval ($CONDA_EXE shell.fish reactivate)
-                            case '*'
-                                $CONDA_EXE $cmd $argv
-                        end
-                    end}
-                set-function    return_last_status {
-                    return $argv}
-            }
-        }
-    }
+    # NOTE: the final semicolon is required
+    puts stdout "mamba activate 202301;"
     ```
 
 ### Setting a Default Modulefile

@@ -44,21 +44,100 @@ fi
 
     The initialisation code should **not** be added to `xsoft`'s shell files, as this will cause the Conda installation to be initialised automatically which is not desirable for the environment management account.
 
-Now that the installation has been created and the init file is present, create a module file for the installation. This should be placed in `/gpfs/exfel/sw/xfel_modules/mambaforge/` and named after the version:
+## Creating a Modulefile
 
-```tcl
-#%Module 1.0
-module-whatis  "Mambaforge 22.11"
+Now that the installation has been created and the init file is present we can create a modulefile by running `sh-to-mod` on the `mamba-init` script we just wrote:
 
-proc ModulesHelp {} {
-    puts stdout    "Activate mambaforge 22.11"
-}
+```shell
+$ module sh-to-mod bash /gpfs/exfel/sw/software/mambaforge/22.11/bin/mamba-init
 
-set specialuser xsoft
+#%Module
+prepend-path    PATH /gpfs/exfel/sw/software/mambaforge/22.11/condabin
+set-function    __conda_activate {
+    if [ -n "${CONDA_PS1_BACKUP:+x}" ]; then
+        PS1="$CONDA_PS1_BACKUP";
+        \unset CONDA_PS1_BACKUP;
+    fi;
+    \local ask_conda;
+    ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix "$@")" || \return;
+    \eval "$ask_conda";
+    __conda_hashr}
+set-function    __conda_exe {
+    ( "$CONDA_EXE" $_CE_M $_CE_CONDA "$@" )}
+set-function    __conda_hashr {
+    if [ -n "${ZSH_VERSION:+x}" ]; then
+        \rehash;
+    else
+        if [ -n "${POSH_VERSION:+x}" ]; then
+            :;
+        else
+            \hash -r;
+        fi;
+    fi}
+set-function    __conda_reactivate {
+    \local ask_conda;
+    ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix reactivate)" || \return;
+    \eval "$ask_conda";
+    __conda_hashr}
+set-function    __mamba_exe {
+    ( \local MAMBA_CONDA_EXE_BACKUP=$CONDA_EXE;
+    \local MAMBA_EXE=$(\dirname "${CONDA_EXE}")/mamba;
+    "$MAMBA_EXE" $_CE_M $_CE_CONDA "$@" )}
+set-function    conda {
+    \local cmd="${1-__missing__}";
+    case "$cmd" in
+        activate | deactivate)
+            __conda_activate "$@"
+        ;;
+        install | update | upgrade | remove | uninstall)
+            __conda_exe "$@" || \return;
+            __conda_reactivate
+        ;;
+        *)
+            __conda_exe "$@"
+        ;;
+    esac}
+set-function    mamba {
+    \local cmd="${1-__missing__}";
+    case "$cmd" in
+        activate | deactivate)
+            __conda_activate "$@"
+        ;;
+        install | update | upgrade | remove | uninstall)
+            __mamba_exe "$@" || \return;
+            __conda_reactivate
+        ;;
+        *)
+            __mamba_exe "$@"
+        ;;
+    esac}
+setenv          _CE_CONDA {}
+setenv          _CE_M {}
+setenv          CONDA_EXE /gpfs/exfel/sw/software/mambaforge/22.11/bin/conda
+setenv          CONDA_PYTHON_EXE /gpfs/exfel/sw/software/mambaforge/22.11/bin/python
+setenv          CONDA_SHLVL 0
+```
 
-eval set [array get env USER]
+On its own this modulefile will enable the `mamba` installation, however there are a few changes that should be made:
 
-if { [ module-info mode load ] } {
+1. Add `whatis` and `help`:
+
+    ```tcl
+    #%Module 1.0
+    module-whatis  "Mambaforge 22.11"
+
+    proc ModulesHelp {} {
+        puts stdout    "Activate mambaforge 22.11"
+    }
+    ```
+
+2. Add special case for xsoft to place packages in user-readable directory:
+
+    ```tcl
+    set specialuser xsoft
+
+    eval set [array get env USER]
+
     if {$USER != $specialuser} {
         # Set for all users except xsoft
         append-path    CONDA_PKGS_DIRS "~/.conda/pkgs"
@@ -66,13 +145,11 @@ if { [ module-info mode load ] } {
     } else {
         append-path    CONDA_PKGS_DIRS "/gpfs/exfel/data/scratch/xsoft/.conda/pkgs"
     }
-    puts stdout    "source /gpfs/exfel/sw/software/mambaforge/22.11/bin/mamba-init;"
-} elseif { [module-info mode remove] && ![module-info mode switch3] } {
-    puts stderr    "Due to how conda-init works, conda cannot be deactivated through the module system."
-}
-```
+    ```
 
-The `xsoft` account is a special case in the activation script, as it is the account performing changes to the environments, so it should not have the `CONDA_PKGS_DIRS` and `CONDA_ENVS_DIRS` environment variables set to its home directory.
+!!! important
+
+    The `xsoft` account is a special case in the activation script, as it is the account performing changes to the environments, so it should not have the `CONDA_PKGS_DIRS` and `CONDA_ENVS_DIRS` environment variables set to its home directory.
 
 Now running `module load mambaforge/22.11` will activate the installation.
 
@@ -108,5 +185,8 @@ source /gpfs/exfel/sw/software/mambaforge/22.11/bin/mamba-init
 mamba env activate base
 # Add required base packages
 mamba install -c conda-forge grayskull boa git
-# Create module file in /gpfs/exfel/sw/xfel_modules/mambaforge/
+# Start up a **new shell** and then create the modulefile
+module sh-to-mod bash /gpfs/exfel/sw/software/mambaforge/22.11/bin/mamba-init > 22.11
+# Make the required changes to the modulefile
+vim 22.11
 ```
