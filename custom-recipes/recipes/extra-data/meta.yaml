@@ -1,5 +1,5 @@
 {% set name = "extra-data" %}
-{% set version = "1.12.0" %}
+{% set version = "1.13.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/EXtra-data-{{ version }}.tar.gz
-  sha256: fb84a0e8163ca399e061a065b8266302298818ffe6621327fbcaffa435790f92
+  sha256: 6b14385b897230666d349d518b4830231fa65ca8f7ec31782588aa5dad190207
 
 build:
   entry_points:
