@@ -1,0 +1,12 @@
+#%Module 1.0
+proc ModulesHelp {} {
+    puts    stdout    "Loads exdf-tools environment"
+    puts    stdout    ""
+}
+
+module-whatis    "Loads exdf-tools environment"
+if { [module-info mode load] || [module-info mode switch2] } {
+    puts stdout "source /gpfs/exfel/sw/software/exfel_environments/exdf-tools/bin/activate;"
+} elseif { [module-info mode remove] && ![module-info mode switch3] } {
+    puts stdout "deactivate;"
+}
