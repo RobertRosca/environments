@@ -37,6 +37,6 @@ about:
   license_file: LICENSE
 
 extra:
-  notes: `flit-core` added manually
+  notes: 'flit-core' added manually
   recipe-maintainers:
     - RobertRosca
