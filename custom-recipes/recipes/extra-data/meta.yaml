@@ -18,7 +18,7 @@ build:
     - extra-data-locality = extra_data.locality:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
@@ -30,6 +30,8 @@ requirements:
     - numpy
     - pandas
     - xarray
+    - matplotlib
+    - dask[array]
 
 test:
   imports:
