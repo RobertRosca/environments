@@ -64,7 +64,7 @@ test:
 
 about:
   home: https://github.com/Dioptas/Dioptas
-  summary: GUI program for reduction and exploration of 2D X-ray diffraction data
+  summary: "GUI program for reduction and exploration of 2D X-ray diffraction data"
   dev_url: https://github.com/dioptas/dioptas
   license: GPL-3.0
   license_file: license.txt

@@ -43,7 +43,7 @@ test:
 
 about:
   home: https://github.com/European-XFEL/karabo-bridge-py
-  summary: Python 3 tools to request data from the Karabo controlsystem.
+  summary: "Python 3 tools to request data from the Karabo controlsystem."
   license: BSD-3-Clause
   license_file: LICENSE
 

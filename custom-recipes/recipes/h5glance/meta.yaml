@@ -34,12 +34,12 @@ test:
 
 about:
   home: https://pypi.org/project/h5glance/
-  summary: Explore HDF5 files in an HTML view
+  summary: "Explore HDF5 files in an HTML view"
   dev_url: https://github.com/European-XFEL/h5glance
   license: BSD-3-Clause
   license_file: LICENSE
 
 extra:
-  notes: 'flit-core' added manually
+  notes: "'flit-core' added manually"
   recipe-maintainers:
     - RobertRosca

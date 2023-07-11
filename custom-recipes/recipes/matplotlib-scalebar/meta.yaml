@@ -32,7 +32,7 @@ test:
 
 about:
   home: https://github.com/ppinard/matplotlib-scalebar
-  summary: Artist for matplotlib to display a scale bar
+  summary: "Artist for matplotlib to display a scale bar"
   license: BSD-2-Clause
   license_file:
     - LICENSE

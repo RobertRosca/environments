@@ -35,7 +35,7 @@ test:
 
 about:
   home: https://git.xfel.eu/gitlab/ITDM/oauth2_xfel_client
-  summary: Python OAUTH 2.0 generic Client used for Backend Application strategy authentication on European XFEL Web Applications
+  summary: "Python OAUTH 2.0 generic Client used for Backend Application strategy authentication on European XFEL Web Applications"
   license: MIT
   license_file: LICENSE
 

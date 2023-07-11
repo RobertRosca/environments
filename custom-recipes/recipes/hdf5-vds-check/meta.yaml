@@ -36,11 +36,11 @@ test:
 
 about:
   home: https://github.com/European-XFEL/hdf5-vds-check
-  summary: Check access to the source files of virtual datasets
+  summary: "Check access to the source files of virtual datasets"
   license: BSD-3-Clause
   license_file: LICENSE
 
 extra:
-  notes: 'flit' added manually
+  notes: "'flit' added manually"
   recipe-maintainers:
     - RobertRosca

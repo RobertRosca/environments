@@ -36,12 +36,12 @@ test:
 
 about:
   home: https://git.xfel.eu/gitlab/dataAnalysis/findxfel
-  summary: Find an EuXFEL proposal/run directory on Maxwell
+  summary: "Find an EuXFEL proposal/run directory on Maxwell"
   license: BSD-3-Clause
   license_file:
     - LICENSE
 
 extra:
-  notes: 'flit-core' added manually
+  notes: "'flit-core' added manually"
   recipe-maintainers:
     - RobertRosca

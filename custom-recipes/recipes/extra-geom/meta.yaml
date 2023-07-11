@@ -35,7 +35,7 @@ test:
 
 about:
   home: https://github.com/European-XFEL/EXtra-geom
-  summary: Tools to work with EuXFEL detector geometry and assemble detector images
+  summary: "Tools to work with EuXFEL detector geometry and assemble detector images"
   license: BSD-3-Clause
   license_file: LICENSE
 

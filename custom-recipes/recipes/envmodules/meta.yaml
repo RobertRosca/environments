@@ -32,11 +32,11 @@ test:
 
 about:
   home: https://github.com/European-XFEL/envmodules
-  summary: Python wrapper around environment modules ("module load")
+  summary: "Python wrapper around environment modules ('module load')"
   license: BSD-3-Clause
   license_file: LICENSE
 
 extra:
-  notes: 'flit-core' added manually
+  notes: "'flit-core' added manually"
   recipe-maintainers:
     - RobertRosca

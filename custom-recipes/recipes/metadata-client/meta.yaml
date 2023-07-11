@@ -36,7 +36,7 @@ test:
 
 about:
   home: https://git.xfel.eu/gitlab/ITDM/metadata_client
-  summary: Python Client for European XFEL Metadata Catalogue Web App available at https://in.xfel.eu/metadata
+  summary: "Python Client for European XFEL Metadata Catalogue Web App available at https://in.xfel.eu/metadata"
   license: MIT
   license_file: LICENSE
 

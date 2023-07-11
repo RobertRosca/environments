@@ -36,7 +36,7 @@ test:
 
 about:
   home: https://git.xfel.eu/gitlab/ITDM/calibration_client
-  summary: Python Client for European XFEL Calibration Catalogue Web App available at https://in.xfel.eu/calibration
+  summary: "Python Client for European XFEL Calibration Catalogue Web App available at https://in.xfel.eu/calibration"
   license: MIT
   license_file: LICENSE
 

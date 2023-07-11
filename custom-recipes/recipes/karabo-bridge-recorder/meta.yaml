@@ -38,11 +38,11 @@ test:
     - pip
 
 about:
-  summary: Record and play back data streams from Karabo bridge
+  summary: "Record and play back data streams from Karabo bridge"
   license: Other
   dev_url: https://git.xfel.eu:10022/tmichela/EXtra-HED.git
 
 extra:
-  notes: 'flit-core' added manually
+  notes: "'flit-core' added manually"
   recipe-maintainers:
     - RobertRosca

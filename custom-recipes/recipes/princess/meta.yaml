@@ -36,12 +36,12 @@ test:
 
 about:
   home: https://pypi.org/project/princess/
-  summary: Please Run IPython Notebook in the Current Environment with Stdout & Stderr
+  summary: "Please Run IPython Notebook in the Current Environment with Stdout & Stderr"
   dev_url: https://github.com/European-XFEL/princess
   license: BSD-3-Clause
   license_file: LICENSE
 
 extra:
-  notes: 'flit-core' added manually
+  notes: "'flit-core' added manually"
   recipe-maintainers:
     - RobertRosca

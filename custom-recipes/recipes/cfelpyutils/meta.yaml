@@ -40,7 +40,7 @@ test:
 
 about:
   home: https://gitlab.desy.de/cfel-sc-public/cfelpyutils
-  summary: Utility functions and classes for CFEL software projects
+  summary: "Utility functions and classes for CFEL software projects"
   license: GPL-3.0
   license_file: LICENSE
 

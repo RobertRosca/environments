@@ -37,11 +37,11 @@ test:
     - pip
 
 about:
-  summary: Analysis toolbox for the HED instrument at EuXFEL.
+  summary: "Analysis toolbox for the HED instrument at EuXFEL."
   license: BSD-3-Clause
   dev_url: https://git.xfel.eu:10022/tmichela/EXtra-HED.git
 
 extra:
-  notes: Invalid license removed manually
+  notes: "Invalid license removed manually"
   recipe-maintainers:
     - RobertRosca

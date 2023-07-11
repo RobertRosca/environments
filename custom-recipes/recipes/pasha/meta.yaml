@@ -32,7 +32,7 @@ test:
 
 about:
   home: https://github.com/European-XFEL/pasha
-  summary: Tools to parallelize operations on large data sets using shared memory with zero copies.
+  summary: "Tools to parallelize operations on large data sets using shared memory with zero copies."
   license: BSD-3-Clause
   license_file: LICENSE
 
