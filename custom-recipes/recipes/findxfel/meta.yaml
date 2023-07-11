@@ -6,9 +6,9 @@ package:
   version: {{ version }}
 
 source:
-  path: /gpfs/exfel/sw/software/xfel_anaconda3/mambaforge-22.9/conda-recipes/src/findxfel
-  #git_url: git+ssh://git.xfel.eu/dataAnalysis/findxfel
-  #depth: 1
+  # path: /gpfs/exfel/sw/software/xfel_anaconda3/mambaforge-22.9/conda-recipes/src/findxfel
+  git_url: git+ssh://git.xfel.eu/dataAnalysis/findxfel
+  depth: 1
 
 build:
   entry_points:
