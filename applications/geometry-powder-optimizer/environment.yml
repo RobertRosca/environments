@@ -12,6 +12,8 @@ dependencies:
   - dask[array]
   - extra-data >= 0.13.0
   - extra-geom
+  - fabio
+  - faiss-cpu
   - h5py
   - ipykernel
   - ipywidgets
@@ -26,4 +28,5 @@ dependencies:
   - scikit-learn-extra
   - scipy
   - seaborn
+  - silx
   - xarray
