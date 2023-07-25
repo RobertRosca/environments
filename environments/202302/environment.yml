@@ -1,8 +1,8 @@
-name: "202301"
+name: "202302"
 channels:
-  - conda-forge
-  - file://gpfs/exfel/sw/software/mambaforge/22.11/conda-bld
   - nodefaults
+  - file://gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
+  - conda-forge
 dependencies:
   - python=3.9
   - brotlipy=0.7.0
@@ -14,7 +14,7 @@ dependencies:
   - ipywidgets=7.7.0
   - jupyter=1.0.0
   - jupyter-server-mathjax=0.2.6
-  - jupyter-server-proxy=3.2.1
+  - jupyter-server-proxy=4.0.0
   - jupyter_client=7.3.4
   - jupyter_console=6.4.3
   - jupyter_core=4.10.0
@@ -38,11 +38,13 @@ dependencies:
   - spyder-kernels=2.3.1
   - astropy
   - bokeh
+  - curl
   - cython
   - dask
   - dask-jobqueue
   - dask-labextension
   - fabio
+  - fftw
   - h5py
   - imageio
   - iminuit
@@ -76,7 +78,7 @@ dependencies:
   - condat-gridconv
   - envmodules
   - euxfel-bunch-pattern
-  - extra-data
+  - extra-data >= 1.13
   - extra-geom
   - extra-hed
   - findxfel
