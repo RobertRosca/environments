@@ -36,6 +36,7 @@ for environment in environments:
     lock_dict = {
         dep.split("=")[0]: "=".join(dep.split("=")[1:])
         for dep in yamls["environment.lock.yml"]["dependencies"]
+        if isinstance(dep, str)
     }
     page_rel = Path(page).relative_to("environments")
     nav[page_rel.with_suffix("").parts] = page_rel
@@ -59,6 +60,7 @@ for environment in environments:
 mkdocs_gen_files.set_edit_path(PAGE_PREFIX.joinpath("environments.md"), "gen_pages.py")
 index_file = Path(__file__).parent / "environments.md"
 index = index_file.read_text()
+
 
 with mkdocs_gen_files.open(PAGE_PREFIX.joinpath("environments.md"), "w") as f:
     text = "".join(
