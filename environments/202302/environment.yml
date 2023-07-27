@@ -65,7 +65,7 @@ dependencies:
   - pyopengl
   - pytest
   - pywavelets
-  - pyzmq
+  - pyzmq<25
   - scikit-beam
   - scikit-image
   - scikit-learn
