@@ -28,9 +28,11 @@ conda index ./conda-bld
 
 boa build \
   --skip-existing \
+  --continue-on-failure \
   --croot $tmp_shm \
   --output-folder ./conda-bld \
   --target-platform linux-64 \
+  -m ./python-versions.yaml \
   $p
 
 conda index ./conda-bld
