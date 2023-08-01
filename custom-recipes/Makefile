@@ -6,7 +6,7 @@ ARGS := --rm -it --workdir=/io \
 	-v $(HOME)/.ssh:/home/mambauser/.ssh \
 	-v $(CURDIR)/conda-bld:/opt/conda/conda-bld \
 	-v $(CURDIR):/io \
-	--shm-size 16gb \
+	--tmpfs /dev/shm:rw,nosuid,nodev,exec,size=16g \
 	ghcr.io/european-xfel/environments:main
 
 
@@ -20,10 +20,10 @@ build:
 	fi
 
 build-docker:
-	$(DOCKER_RUN) $(ARGS) ./build.sh
+	$(DOCKER_RUN) $(ARGS) ./build.sh $(PKG)
 
 build-srun:
-	$(SRUN) $(DOCKER_RUN_MAXWELL) $(ARGS) ./build.sh
+	$(SRUN) $(DOCKER_RUN_MAXWELL) $(ARGS) ./build.sh $(PKG)
 
 build-max:
-	$(DOCKER_RUN_MAXWELL) $(ARGS) ./build.sh
+	$(DOCKER_RUN_MAXWELL) $(ARGS) ./build.sh $(PKG)
