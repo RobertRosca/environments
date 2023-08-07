@@ -1,0 +1,12 @@
+#%Module 1.0
+proc ModulesHelp {} {
+    puts stdout    "EPOCH particle-in-cell code for plasma physics simulations"
+}
+
+module-whatis  "EPOCH particle-in-cell code for plasma phyics simulations"
+
+if { [ module-info mode load ] } {
+    system    "/gpfs/exfel/sw/software/local/etc/metrics.sh 'epoch/4.19.2-9-g724471f'"
+}
+
+prepend-path    PATH /gpfs/exfel/sw/software/simulations/epoch/bin
