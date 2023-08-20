@@ -12,7 +12,6 @@ dependencies:
   - extra-geom
   - extra-hed
   - findxfel
-  - h5glance
   - hdf5-vds-check
   - karabo-bridge
   - karabo_bridge_recorder

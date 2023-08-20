@@ -12,6 +12,7 @@ dependencies:
   - dask-labextension
   - fabio
   - fftw
+  - h5glance>=0.8.1
   - h5py
   - imageio
   - iminuit
