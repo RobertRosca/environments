@@ -1,6 +1,6 @@
 context:
   name: karabo-bridge
-  version: 0.6.2
+  version: 0.7.0
 
 package:
   name: '{{ name|lower }}'
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/karabo_bridge-{{ version }}.tar.gz
-  sha256: 97d6c755a765708f2c25679d652b9b585fc57800f97a09b7a27211f9ba99c40b
+  sha256: cec6fbc2aa8de9dcabc1590029d24787fbe5b6a1760242f76f7d5f5781954223
 
 build:
   entry_points:
@@ -30,6 +30,7 @@ requirements:
     - msgpack-python >=0.5.4
     - numpy
     - pyzmq >=17.0.0
+    - qtpy
 
 test:
   imports:
