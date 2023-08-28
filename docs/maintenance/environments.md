@@ -258,10 +258,10 @@ You should load that environment and then check the versions of the following pa
 - ipywidgets
 - matplotlib
 
-And pin them to be the same as the versions currently used by Max-JHub. Currently (February 2023) this means:
+And pin them to be the same as the versions currently used by Max-JHub. Currently (August 2023) this means:
 
 ```text
-- ipympl=0.7.0
-- ipywidgets=7.6.3
-- matplotlib=3.4.2
+- ipympl=0.9.3
+- ipywidgets=7.7.0
+- matplotlib=3.5.2
 ```
