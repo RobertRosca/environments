@@ -1,7 +1,8 @@
-name: 202302
+name: "202302"
 channels:
+  - nodefaults
+  - /gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
   - conda-forge
-  - file://gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
 dependencies:
   - python=3.9
   - brotlipy=0.7.0
@@ -51,6 +52,7 @@ dependencies:
   - jupyterlab-lsp
   - kafka-python
   - lmfit
+  - mpl-interactions
   - msgpack-numpy
   - msgpack-python
   - natsort
