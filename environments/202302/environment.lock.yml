@@ -1,9 +1,7 @@
 name: '202302'
 channels:
-  - file:///gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
-  - file://gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
-  - file://gpfs/exfel/sw/software/mambaforge/22.11/conda-bld
   - nodefaults
+  - /gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
   - conda-forge
 dependencies:
   - _libgcc_mutex=0.1
@@ -322,6 +320,7 @@ dependencies:
   - mistune=3.0.0
   - more-itertools=9.1.0
   - mpg123=1.31.3
+  - mpl-interactions=0.23.2
   - msgpack-numpy=0.4.8
   - msgpack-python=1.0.5
   - multidict=6.0.4
@@ -571,5 +570,5 @@ dependencies:
   - zstd=1.5.2
   - pip:
       - da-utils==0.1.0
-      - euxfel-extra==2023.2.29+771c319
+      - euxfel-extra==2023.2.61+2851355
 prefix: /gpfs/exfel/sw/software/mambaforge/22.11/envs/202302

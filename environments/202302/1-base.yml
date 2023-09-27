@@ -25,6 +25,7 @@ dependencies:
   - kafka-python
   - lmfit
   - matplotlib
+  - mpl-interactions
   - msgpack-numpy
   - msgpack-python
   - natsort
