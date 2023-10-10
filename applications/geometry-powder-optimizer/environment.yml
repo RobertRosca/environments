@@ -23,6 +23,7 @@ dependencies:
   - numpy
   - pandas
   - pytorch
+  - pyfai
   - scikit-image
   - scikit-learn
   - scikit-learn-extra
