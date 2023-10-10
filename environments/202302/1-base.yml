@@ -39,6 +39,7 @@ dependencies:
   - pyfai
   - pyopengl
   - pytest
+  - pytorch
   - pywavelets
   - pyzmq<25
   - scikit-beam
