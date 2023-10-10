@@ -39,7 +39,10 @@ dependencies:
   - pyfai
   - pyopengl
   - pytest
-  - pytorch
+  - pytorch::pytorch
+  - torchvision::pytorch
+  - torchaudio::pytorch
+  - cpuonly::pytorch
   - pywavelets
   - pyzmq<25
   - scikit-beam
