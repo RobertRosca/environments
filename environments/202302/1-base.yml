@@ -11,6 +11,7 @@ dependencies:
   - dask-jobqueue
   - dask-labextension
   - fabio
+  - fast-histogram
   - fftw
   - h5glance>=0.8.1
   - h5py
