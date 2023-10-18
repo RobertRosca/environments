@@ -26,13 +26,14 @@ tmp_shm=$(mktemp -d -p /dev/shm boa-XXXX)
 
 conda index ./conda-bld
 
+rm -f ./conda-bld/*/$p-*.tar.bz2
+
 boa build \
-  --skip-existing \
-  --continue-on-failure \
+  --numpy 1.24 \
+  --python 3.9 \
   --croot $tmp_shm \
   --output-folder ./conda-bld \
   --target-platform linux-64 \
-  -m ./python-versions.yaml \
   $p
 
 conda index ./conda-bld
