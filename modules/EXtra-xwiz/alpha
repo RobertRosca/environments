@@ -8,12 +8,10 @@ proc ModulesHelp {} {
 }
 
 module-whatis  "Setup environment for EXtra-xwiz/alpha"
+prepend-path PATH /gpfs/exfel/sw/software/extra-xwiz-alpha_env/bin
+setenv VIRTUAL_ENV /gpfs/exfel/sw/software/extra-xwiz-alpha_env
 
 if { [module-info mode load] || [module-info mode switch2] } {
     system "/gpfs/exfel/sw/software/local/etc/metrics.sh 'EXtra-xwiz/alpha'"
-    puts stdout "source /gpfs/exfel/sw/software/extra-xwiz-alpha_env/bin/activate;"
-    prepend-path PATH /gpfs/exfel/sw/software/extra-xwiz-alpha_env/bin
-} elseif { [module-info mode remove] && ![module-info mode switch3] } {
-    puts stdout "deactivate;"
 }
 
