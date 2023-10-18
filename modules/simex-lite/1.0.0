@@ -1,0 +1,17 @@
+#%Module 1.0.0
+#
+#  SimEx-Lite 1.0.0
+#
+
+proc ModulesHelp {} {
+    puts stdout "This module sets the SimEx-Lite environment"
+}
+
+module-whatis  "Setup environment for SimEx-Lite"
+prepend-path PATH /gpfs/exfel/sw/software/simex-lite/bin
+setenv VIRTUAL_ENV /gpfs/exfel/sw/software/simex-lite
+
+if { [module-info mode load] || [module-info mode switch2] } {
+    system "/gpfs/exfel/sw/software/local/etc/metrics.sh 'simex-lite/1.0.0'"
+}
+
