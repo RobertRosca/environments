@@ -1,0 +1,57 @@
+context:
+  name: spsim
+  version: 1.0.0
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  git_url: https://github.com/FXIhub/spsim.git
+  git_depth: 1
+
+build:
+  script:
+    - mkdir build
+    - cd build
+    - >
+      cmake \
+        -DUSE_CUDA=OFF \
+        -USE_NFFT=ON \
+        -DPYTHON_WRAPPERS=ON \
+        -DCMAKE_INSTALL_PREFIX=$PREFIX \
+        -DPYTHON_INSTDIR=$SP_DIR \
+        ..
+    - make
+    - make install
+
+requirements:
+  build:
+    - "{{ compiler('gxx') }}"
+    - python
+    - make
+    - cmake
+    - gsl
+    - swig
+
+    # - libpng
+    # - libtiff
+    # - zlib
+    # - fftw >=3
+  host:
+    - hdf5
+    - libspimage
+    - nfft
+    - numpy
+    - openblas
+  run:
+    - python
+    - "{{ pin_compatible('numpy') }}"
+    - hdf5
+    - fftw >=3
+    - libspimage
+    - openblas
+
+test:
+  imports:
+    - spsim

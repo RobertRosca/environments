@@ -1,0 +1,30 @@
+context:
+  name: nfft
+  version: 3.5.3
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  url: https://www-user.tu-chemnitz.de/~potts/nfft/download/nfft-3.5.3.tar.gz
+  sha256: caf1b3b3e5bf8c33a6bfd7eca811d954efce896605ecfd0144d47d0bebdf4371
+
+build:
+  script:
+    - export LDFLAGS="$LDFLAGS,-rpath,$BUILD_PREFIX/lib -Wl,-rpath-link,$BUILD_PREFIX/lib -L$BUILD_PREFIX/lib"
+    - ./configure --prefix=$PREFIX --with-fftw3-libdir=$BUILD_PREFIX/lib --with-fftw3-includedir=$BUILD_PREFIX/include
+    - make
+    - make check
+    - make install
+
+requirements:
+  build:
+    - "{{ compiler('c') }}"
+    - make
+    - fftw >=3
+
+test:
+  exists:
+    lib:
+      - nfft3

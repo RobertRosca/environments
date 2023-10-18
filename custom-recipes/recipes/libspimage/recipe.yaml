@@ -1,0 +1,56 @@
+context:
+  name: libspimage
+  version: 1.0.0
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  git_url: https://github.com/FXIhub/libspimage.git
+  git_depth: 1
+
+build:
+  script:
+    - mkdir build
+    - cd build
+    - >
+      cmake \
+        -DCMAKE_VERBOSE_MAKEFILE=ON \
+        -DUSE_CUDA=OFF \
+        -DPYTHON_WRAPPERS=ON \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+        -DPYTHON_INSTDIR=${SP_DIR} \
+        -DPYTHON_EXECUTABLE=${PYTHON} \
+        ..
+    - make
+    - make install
+
+requirements:
+  build:
+    - "{{ compiler('gxx') }}"
+    - python
+    - make
+    - cmake
+    - swig
+  host: 
+    - python
+    - fftw >=3
+    - gsl
+    - hdf5
+    - libpng
+    - libtiff
+    - numpy
+    - zlib
+  run:
+    - "{{ pin_compatible('numpy') }}"
+    - h5py
+    - scipy
+
+test:
+  imports:
+    - spimage
+
+  exists:
+    lib:
+      - spimage
