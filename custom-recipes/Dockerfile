@@ -8,4 +8,10 @@ RUN micromamba install -y \
   grayskull \
   openssh
 
+ARG MAMBA_DOCKERFILE_ACTIVATE=1
+
+RUN conda config --set channel_priority 'strict'
+RUN conda config --prepend channels conda-forge
+RUN conda config --prepend channels nodefaults
+
 RUN micromamba clean --all --yes
