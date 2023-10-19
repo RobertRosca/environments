@@ -11,6 +11,7 @@ ARGS := --rm -it --workdir=/io \
 
 
 build:
+	mkdir -p conda-bld
 	@if command -v dockerrun >/dev/null 2>&1; then \
 		$(MAKE) build-max; \
 	elif command -v srun --help >/dev/null 2>&1; then \
