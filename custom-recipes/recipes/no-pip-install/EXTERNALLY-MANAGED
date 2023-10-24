@@ -1,0 +1,3 @@
+[externally-managed]
+Error=This is a pure conda environment, packages should not be installed into
+  it directly via pip.
