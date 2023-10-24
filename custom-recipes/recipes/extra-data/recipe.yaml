@@ -28,7 +28,7 @@ requirements:
   run:
     - python >=3.6
     - h5py >=2.10
-    - numpy
+    - "{{ pin_compatible('numpy') }}"
     - pandas
     - xarray
     - matplotlib

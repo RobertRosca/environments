@@ -25,7 +25,7 @@ requirements:
   run:
     - extra-data
     - h5py
-    - numpy
+    - "{{ pin_compatible('numpy') }}"
     - python
     - scipy
 
