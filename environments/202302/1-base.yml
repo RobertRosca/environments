@@ -3,6 +3,10 @@ channels:
   - conda-forge
 dependencies:
   - python=3.9
+  - cpuonly::pytorch
+  - pytorch::pytorch
+  - torchaudio::pytorch
+  - torchvision::pytorch
   - astropy
   - bokeh
   - curl
@@ -14,6 +18,7 @@ dependencies:
   - fast-histogram
   - fftw
   - h5glance>=0.8.1
+  - h5netcdf
   - h5py
   - imageio
   - iminuit
@@ -40,10 +45,6 @@ dependencies:
   - pyfai
   - pyopengl
   - pytest
-  - pytorch::pytorch
-  - torchvision::pytorch
-  - torchaudio::pytorch
-  - cpuonly::pytorch
   - pywavelets
   - pyzmq<25
   - scikit-beam
