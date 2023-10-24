@@ -1,11 +1,9 @@
 name: '202302'
 channels:
-  - file:///gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
-  - file://gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
-  - pytorch
-  - file://gpfs/exfel/sw/software/mambaforge/22.11/conda-bld
   - nodefaults
+  - file://gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
   - conda-forge
+  - pytorch
 dependencies:
   - _libgcc_mutex=0.1
   - _openmp_mutex=4.5
@@ -79,6 +77,7 @@ dependencies:
   - cloudpickle=2.2.1
   - colorama=0.4.6
   - condat-gridconv=latest
+  - condor=1.0.7
   - configurable-http-proxy=4.5.4
   - contourpy=1.1.0
   - cookiecutter=2.2.3
@@ -145,10 +144,12 @@ dependencies:
   - gnutls=3.7.8
   - graphite2=1.3.13
   - greenlet=2.0.2
+  - gsl=2.7
   - gst-plugins-base=1.22.5
   - gstreamer=1.22.5
   - h5glance=0.8.1
   - h5grove=1.2.0
+  - h5netcdf=1.2.0
   - h5py=3.9.0
   - harfbuzz=7.3.0
   - hdf4=4.2.15
@@ -260,6 +261,7 @@ dependencies:
   - libllvm14=14.0.6
   - libllvm15=15.0.7
   - libnetcdf=4.9.2
+  - libnfft=3.5.3
   - libnghttp2=1.52.0
   - libnsl=2.0.0
   - libnuma=2.0.16
@@ -286,6 +288,7 @@ dependencies:
   - libsndfile=1.2.0
   - libsodium=1.0.18
   - libspatialindex=1.9.3
+  - libspimage=1.0.0
   - libsqlite=3.42.0
   - libssh2=1.11.0
   - libstdcxx-ng=13.1.0
@@ -493,6 +496,7 @@ dependencies:
   - sphinxcontrib-jsmath=1.0.1
   - sphinxcontrib-qthelp=1.0.3
   - sphinxcontrib-serializinghtml=1.1.5
+  - spsim=1.0.0
   - spyder=5.3.1
   - spyder-kernels=2.3.1
   - sqlalchemy=2.0.18
@@ -586,5 +590,5 @@ dependencies:
   - zstd=1.5.2
   - pip:
       - da-utils==0.1.0
-      - euxfel-extra==2023.2.89+f4829c4
+      - euxfel-extra==2023.2.93+0fed88b
 prefix: /gpfs/exfel/sw/software/mambaforge/22.11/envs/202302
