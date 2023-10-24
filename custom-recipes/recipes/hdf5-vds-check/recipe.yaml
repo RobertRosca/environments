@@ -14,7 +14,7 @@ build:
   entry_points:
     - hdf5-vds-check = hdf5_vds_check:main
   noarch: python
-  script: '{{ PYTHON }} -m pip install . -vv'
+  script: '{{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .'
   number: 0
 
 requirements:

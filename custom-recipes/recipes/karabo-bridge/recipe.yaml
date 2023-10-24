@@ -15,7 +15,7 @@ build:
     - karabo-bridge-monitor=karabo_bridge.cli.monitor:main
     - karabo-bridge-server-sim=karabo_bridge.cli.simulation:main
   noarch: python
-  script: '{{ PYTHON }} -m pip install . -vv'
+  script: '{{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .'
   number: 0
 
 requirements:

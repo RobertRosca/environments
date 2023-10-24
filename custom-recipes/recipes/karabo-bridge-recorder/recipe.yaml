@@ -16,7 +16,7 @@ build:
     - karabo-bridge-record = karabo_bridge_recorder.record:main
     - karabo-bridge-replay = karabo_bridge_recorder.replay:main
   noarch: python
-  script: '{{ PYTHON }} -m pip install . -vv'
+  script: '{{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .'
   number: 0
 
 requirements:

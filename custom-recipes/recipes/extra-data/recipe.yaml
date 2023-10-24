@@ -18,7 +18,7 @@ build:
     - extra-data-make-virtual-cxi = extra_data.cli.make_virtual_cxi:main
     - extra-data-locality = extra_data.locality:main
   noarch: python
-  script: '{{ PYTHON }} -m pip install . -vv'
+  script: '{{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .'
   number: 1
 
 requirements:
