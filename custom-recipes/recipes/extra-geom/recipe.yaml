@@ -24,7 +24,7 @@ requirements:
     - cfelpyutils >=2.0,<3.0
     - h5py >=2.7.1
     - matplotlib-base
-    - "{{ pin_compatible('numpy') }}"
+    - numpy
 
 test:
   imports:
