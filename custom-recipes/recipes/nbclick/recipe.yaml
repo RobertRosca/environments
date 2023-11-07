@@ -1,0 +1,51 @@
+context:
+  name: nbclick
+  version: 0.4.1
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/nbclick-{{ version }}.tar.gz
+  sha256: 87aa6044ab2c78a929db5a82f94c7d5633174d4a7db3c88f462709a778d7af66
+
+build:
+  entry_points:
+    - nbclick = nbclick.__main__:main
+  noarch: python
+  script: '{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation'
+  number: 0
+
+requirements:
+  host:
+    - python
+    - setuptools >=61
+    - setuptools-scm >=7
+    - pip
+  run:
+    - python
+    - click >=8.0
+    - ipykernel
+    - nbclient >=0.5
+    - nbformat >=5.1
+    - nbparameterise >=0.5
+
+test:
+  imports:
+    - nbclick
+  commands:
+    - pip check
+    - nbclick --help
+  requires:
+    - pip
+
+about:
+  summary: Modify and run Jupyter notebooks from the command line
+  license: MIT
+  license_file: LICENSE.md
+
+extra:
+  recipe-maintainers:
+    - takluyver
+

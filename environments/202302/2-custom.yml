@@ -18,6 +18,7 @@ dependencies:
   - matplotlib-scalebar
   - metadata-client
   - metropc
+  - nbclick
   - pasha
   - princess
   - condor

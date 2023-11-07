@@ -21,6 +21,7 @@ dependencies:
   - argon2-cffi=21.3.0
   - argon2-cffi-bindings=21.2.0
   - arrow=1.2.3
+  - astcheck=0.3.0
   - asteval=0.9.30
   - astroid=2.15.6
   - astropy=5.3.1
@@ -346,12 +347,14 @@ dependencies:
   - mysql-libs=8.0.33
   - natsort=8.4.0
   - nbclassic=0.5.6
+  - nbclick=0.4.1
   - nbclient=0.7.0
   - nbconvert=7.6.0
   - nbconvert-core=7.6.0
   - nbconvert-pandoc=7.6.0
   - nbdime=3.2.1
   - nbformat=5.9.1
+  - nbparameterise=0.6
   - ncurses=6.4
   - nest-asyncio=1.5.6
   - netcdf4=1.6.4
@@ -594,5 +597,5 @@ dependencies:
   - zstd=1.5.2
   - pip:
       - da-utils==0.1.0
-      - euxfel-extra==2023.2.95+29f9381
+      - euxfel-extra==2023.2.103+92f233f
 prefix: /gpfs/exfel/sw/software/mambaforge/22.11/envs/202302
