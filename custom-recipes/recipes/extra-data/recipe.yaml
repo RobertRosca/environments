@@ -1,6 +1,6 @@
 context:
   name: extra-data
-  version: 1.14.0
+  version: 1.15.0
 
 package:
   name: '{{ name|lower }}'
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/EXtra-data-{{ version }}.tar.gz
-  sha256: 11b3b3d40c6f66e91fda2a2f396ce65d837955b258e639cad90ba63ec4bff405
+  sha256: bad5fc01f821929118a650db4bb9b429ddf3e197e4b14857c54055a9451ad842
 
 build:
   entry_points:
@@ -28,7 +28,7 @@ requirements:
   run:
     - python >=3.6
     - h5py >=2.10
-    - "{{ pin_compatible('numpy') }}"
+    - numpy
     - pandas
     - xarray
     - matplotlib
