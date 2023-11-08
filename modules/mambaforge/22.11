@@ -24,6 +24,14 @@ setenv          CONDA_EXE /gpfs/exfel/sw/software/mambaforge/22.11/bin/conda
 setenv          CONDA_PYTHON_EXE /gpfs/exfel/sw/software/mambaforge/22.11/bin/python
 setenv          CONDA_SHLVL 0
 
+if {$USER == $specialuser} {
+    # activate base by default for xsoft
+    prepend-path    PATH /gpfs/exfel/sw/software/mambaforge/22.11/bin
+    setenv          CONDA_DEFAULT_ENV base
+    setenv          CONDA_PREFIX /gpfs/exfel/sw/software/mambaforge/22.11
+    setenv          CONDA_PROMPT_MODIFIER "(base) "
+    setenv          CONDA_SHLVL 1
+}
 
 if {[info commands set-function] eq {set-function}} {
     switch -- [module-info shelltype] {
