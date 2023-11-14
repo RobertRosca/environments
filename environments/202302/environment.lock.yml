@@ -1,6 +1,5 @@
 name: '202302'
 channels:
-  - file://gpfs/exfel/sw/software/euxfel-environment-management/custom-recipes/conda-bld
   - pytorch
   - file:///gpfs/exfel/data/scratch/roscar/conda-bld
   - file://gpfs/exfel/sw/software/mambaforge/22.11/conda-bld
@@ -109,7 +108,7 @@ dependencies:
   - euxfel-bunch-pattern=0.6
   - exceptiongroup=1.1.2
   - expat=2.5.0
-  - extra-data=1.14.0
+  - extra-data=1.15.0
   - extra-geom=1.11.0
   - extra-hed=0.1.0
   - fabio=2023.4.1
@@ -403,6 +402,7 @@ dependencies:
   - plotly=5.15.0
   - pluggy=1.2.0
   - ply=3.11
+  - polars=0.19.13
   - princess=0.6
   - prometheus_client=0.17.1
   - prompt-toolkit=3.0.39
@@ -597,5 +597,5 @@ dependencies:
   - zstd=1.5.2
   - pip:
       - da-utils==0.1.0
-      - euxfel-extra==2023.2.103+92f233f
+      - euxfel-extra==2023.2.109+9d572bc
 prefix: /gpfs/exfel/sw/software/mambaforge/22.11/envs/202302

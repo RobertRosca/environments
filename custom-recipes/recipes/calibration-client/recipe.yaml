@@ -1,6 +1,6 @@
 context:
   name: calibration-client
-  version: 11.0.0
+  version: 11.3.0
 
 package:
   name: '{{ name|lower }}'
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/calibration_client-{{ version }}.tar.gz
-  sha256: 352279e76060a39097064725ac3a46bd825475da18b9c74207ff159b2c1eaf4b
+  sha256: 9d94df40a60eeaf3363848e6a2ed15c07059828a0e5e4b44afa2151fa1847b85
 
 build:
   noarch: python

@@ -8,7 +8,6 @@ ARGS := --rm -it --workdir=/io \
 	-v $(HOME)/.ssh:/home/mambauser/.ssh:ro \
 	-v $(CURDIR):/io \
 	--tmpfs /dev/shm:rw,nosuid,nodev,exec,size=16g \
-	--user $(UID) \
 	ghcr.io/european-xfel/environments:main
 
 build:

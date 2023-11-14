@@ -36,6 +36,10 @@ dependencies:
   - scipy=1.8.1
   - spyder=5.3.1
   - spyder-kernels=2.3.1
+  - cpuonly::pytorch
+  - pytorch::pytorch
+  - torchaudio::pytorch
+  - torchvision::pytorch
   - astropy
   - bokeh
   - curl
@@ -44,8 +48,10 @@ dependencies:
   - dask-jobqueue
   - dask-labextension
   - fabio
+  - fast-histogram
   - fftw
   - h5glance>=0.8.1
+  - h5netcdf
   - h5py
   - imageio
   - iminuit
@@ -65,11 +71,8 @@ dependencies:
   - pybaselines
   - pyfai
   - pyopengl
+  - pyqtgraph
   - pytest
-  - pytorch::pytorch
-  - torchvision::pytorch
-  - torchaudio::pytorch
-  - cpuonly::pytorch
   - pywavelets
   - pyzmq<25
   - scikit-beam
@@ -79,7 +82,7 @@ dependencies:
   - silx
   - xarray
   - xraylib
-  - calibration-client
+  - calibration-client >=11.3.0
   - cfelpyutils
   - condat-gridconv
   - envmodules
@@ -96,3 +99,4 @@ dependencies:
   - metropc
   - pasha
   - princess
+  - condor

@@ -41,6 +41,7 @@ dependencies:
   - opencv
   - papermill
   - plotly
+  - polars
   - pybaselines
   - pyfai
   - pyopengl
