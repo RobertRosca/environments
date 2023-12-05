@@ -7,8 +7,8 @@ package:
   version: '{{ version }}'
 
 source:
-  # path: /gpfs/exfel/sw/software/xfel_anaconda3/mambaforge-22.9/conda-recipes/src/metropc
-  git_url: git+ssh://git.xfel.eu/karaboDevices/metropc.git
+  path: ./src
+  # git_url: ssh://git@git.xfel.eu:10022/karaboDevices/metropc.git
   git_depth: 1
 
 build:

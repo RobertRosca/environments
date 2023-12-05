@@ -1,4 +1,4 @@
-custom-recipes/src
+custom-recipes/recipes/*/src
 custom-recipes/conda-bld
 site/
 
