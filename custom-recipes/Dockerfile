@@ -1,4 +1,4 @@
-FROM docker://mambaorg/micromamba:1.5.3
+FROM mambaorg/micromamba:1.5.3
 
 ARG MAMBA_DOCKERFILE_ACTIVATE=1
 
