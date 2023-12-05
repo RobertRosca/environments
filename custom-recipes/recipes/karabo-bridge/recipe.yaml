@@ -27,7 +27,7 @@ requirements:
     - h5py
     - msgpack-numpy
     - msgpack-python >=0.5.4
-    - "{{ pin_compatible('numpy') }}"
+    - numpy
     - pyzmq >=17.0.0
 
 test:
