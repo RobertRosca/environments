@@ -1,5 +1,6 @@
 custom-recipes/recipes/*/src
 custom-recipes/conda-bld
+custom-recipes/.pkg-cache
 site/
 
 # Local Netlify folder

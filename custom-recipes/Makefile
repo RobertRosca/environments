@@ -6,11 +6,13 @@ UID := $(shell id -u)
 
 ARGS := --rm -it --workdir=/io \
 	-v $(CURDIR):/io \
+	-v $(CURDIR)/.pkg-cache:/home/mambauser/.conda/pkgs \
 	--tmpfs /dev/shm:rw,nosuid,nodev,exec,size=16g \
 	ghcr.io/european-xfel/environments:main
 
 build:
 	mkdir -p conda-bld
+	mkdir -p .pkg-cache
 	@if command -v dockerrun >/dev/null 2>&1; then \
 		$(MAKE) build-max; \
 	elif command -v srun --help >/dev/null 2>&1; then \
