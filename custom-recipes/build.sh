@@ -31,9 +31,8 @@ fi
 
 conda index ./conda-bld
 
-rm -f ./conda-bld/*/$p-*.tar.bz2
-
 boa build \
+  --skip-existing \
   --target-platform=linux-64 \
   --croot=$tmp_shm \
   --output-folder=./conda-bld \
