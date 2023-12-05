@@ -5,6 +5,7 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 RUN micromamba install -y \
   -n "base" \
   -c conda-forge \
+  "conda-build<3.28.0" \
   boa \
   conda-verify \
   git \
