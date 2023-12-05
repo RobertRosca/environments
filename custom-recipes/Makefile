@@ -8,6 +8,8 @@ ARGS := --rm -it --workdir=/io \
 	-v $(CURDIR):/io \
 	-v $(CURDIR)/.pkg-cache:/home/mambauser/.conda/pkgs \
 	--tmpfs /dev/shm:rw,nosuid,nodev,exec,size=16g \
+	--user $(UID):$(UID) \
+	--userns keep-id \
 	ghcr.io/european-xfel/environments:main
 
 build:
