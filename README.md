@@ -1,10 +1,11 @@
 # European XFEL Environment Management
 
-This repository contains Conda environment specifications and lock files
-defining the environments provided for users at EuXFEL.
+View documentation at https://european-xfel.github.io/environments/
 
-All environments contain **only** Conda packages, as installing packages via pip
-into a Conda environment leads to inconsistencies.
+This repository contains:
 
-If a package is not packaged on Conda, then a recipe should be created for it,
-either by hand or via a tool like Grayskull.
+- Custom Conda recipes for packages in use at EuXFEL
+- Concrete definitions of contents of environments and applications provided to users
+- Module files for activation and use of the environments and applications
+- Documentation on maintenance and use of environments and software
+
