@@ -41,8 +41,8 @@ for environment in environments:
     page_rel = Path(page).relative_to("environments")
     nav[page_rel.with_suffix("").parts] = page_rel
 
-    if (readme := (environment / "README.md")).exists():
-        text = readme.read_text()
+    if (environment / "README.md").exists():
+        text = (environment / "README.md").read_text()
     else:
         text = f"# `{name}`\n"
 
