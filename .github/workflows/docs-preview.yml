@@ -52,13 +52,14 @@ jobs:
       - name: Add Preview
         if: github.event_name == 'pull_request'
         run: |
+          ls -la
           mkdir -p preview
-          mv site preview/${{ github.event.number }}
+          mv artifact preview/${{ github.event.number }}
 
       - name: Add Production
         if: github.event_name == 'push'
         run: |
-          mv site/* .
+          mv artifact/* .
 
       - name: Commit and Push
         run: |
