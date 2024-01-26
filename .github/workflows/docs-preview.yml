@@ -1,0 +1,84 @@
+name: Build Docs
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+          cache: "pip"
+
+      - name: Setup
+        run: |
+          python3 -m pip install hatch
+          hatch env create
+          hatch env show
+
+      - name: Build
+        run: hatch run mkdocs build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./site
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+
+      - name: Clean
+        run: |
+          rm -rf *
+          git checkout -- preview
+          git clean -fdx
+
+      - uses: actions/download-artifact@v4
+
+      - name: Add Preview
+        if: github.event_name == 'pull_request'
+        run: |
+          mkdir -p preview
+          mv site preview/${{ github.event.number }}
+
+      - name: Add Production
+        if: github.event_name == 'push'
+        run: |
+          mv site/* .
+
+      - name: Commit and Push
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -A \
+            -m "Preview for PR#${{ github.event.number }}" \
+            -m "${{ github.head_ref }}" \
+            -m "${{ github.event.pull_request.head.sha }}"
+          git push
+
+    # env:
+    #   dir: ./preview/${{ github.event.number }}
+  comment:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    needs: deploy
+    steps:
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            View preview here - ${{ steps.deployment.outputs.page_url }}
