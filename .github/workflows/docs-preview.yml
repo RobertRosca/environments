@@ -58,6 +58,7 @@ jobs:
         id: preview
         run: |
           mkdir -p preview
+          rm -rf preview/${{ github.event.number }}
           mv artifact preview/${{ github.event.number }}
           git add .
           git commit --all \
