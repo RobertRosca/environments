@@ -9,9 +9,16 @@ on:
 permissions:
   contents: write
 
+env:
+  page_url: https://${{ github.repository_owner }}.github.io/${{github.event.repository.name}}${{ github.event_name == 'pull_request' && format('/preview/{0}', github.event.number) || '/' }}
+  environment: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      page_url: ${{ env.page_url }}
+      environment: ${{ env.environment }}
     steps:
       - uses: actions/checkout@v3
 
@@ -36,8 +43,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    outputs:
-      page_path: ${{ steps.preview.outputs.page_path }}
+    environment:
+      name: ${{ needs.build.outputs.environment }}
+      url: ${{ needs.build.outputs.page_url }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -53,7 +61,7 @@ jobs:
 
       - uses: actions/download-artifact@v4
 
-      - name: Add Preview
+      - name: Preview
         if: github.event_name == 'pull_request'
         id: preview
         run: |
@@ -63,9 +71,7 @@ jobs:
           git add .
           git commit --all \
             -m "Preview for PR#${{ github.event.number }}" \
-            -m "${{ github.head_ref }}" \
             -m "${{ github.event.pull_request.head.sha }}"
-          echo "page_path=preview/${{ github.event.number }}" >> "$GITHUB_OUTPUT"
 
       - name: Add Production
         if: github.event_name == 'push'
@@ -80,7 +86,6 @@ jobs:
 
   comment:
     runs-on: ubuntu-latest
-    # if: github.event_name == 'pull_request' && github.event.action == 'opened'
     permissions:
       pull-requests: write
     needs: deploy
@@ -88,6 +93,6 @@ jobs:
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: |
-            View preview here - https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ needs.deploy.outputs.page_path }}
+            View preview here - ${{ env.page_url }}
 
             Build for ${{ github.event.pull_request.head.sha }}
