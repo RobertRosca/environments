@@ -44,7 +44,7 @@ jobs:
       - name: Clean
         run: |
           rm -rf *
-          git checkout -- preview
+          git checkout -- preview || true
           git clean -fdx
 
       - uses: actions/download-artifact@v4
