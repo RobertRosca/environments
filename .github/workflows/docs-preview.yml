@@ -12,7 +12,11 @@ env:
 
 jobs:
   build-and-upload:
-    uses: robertrosca/environments/.github/workflows/docs-build-artifact.yml@ci/add-preview-docs-builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/workflows/docs-build-artifact.yml
 
   deploy:
     runs-on: ubuntu-latest
@@ -36,6 +40,7 @@ jobs:
       - name: Commit and Push
         run: |
           git add --all preview/${{ github.event.number }}
+          git clean -fdx
           git commit \
             -m "Preview for PR#${{ github.event.number }}" \
             -m "${{ github.event.pull_request.head.sha }}"
