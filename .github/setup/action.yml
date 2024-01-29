@@ -34,4 +34,4 @@ runs:
     - name: Install project
       shell: bash
       run: |
-        poetry --no-ansi --no-interaction install
+        poetry --no-ansi --no-interaction --no-root install
