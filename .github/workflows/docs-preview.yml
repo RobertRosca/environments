@@ -12,7 +12,6 @@ env:
 
 jobs:
   build-and-upload:
-    if: github.event.action != 'closed'
     uses: robertrosca/environments/.github/workflows/docs-build-artifact.yml@ci/add-preview-docs-builds
 
   deploy:
@@ -41,28 +40,3 @@ jobs:
             -m "Preview for PR#${{ github.event.number }}" \
             -m "${{ github.event.pull_request.head.sha }}"
           git push
-
-  close:
-    if: github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: gh-pages
-
-      - name: Remove Preview
-        run: |
-          git rm -rf preview/${{ github.event.number }}
-
-      - name: Commit and Push
-        run: |
-          git commit \
-            -m "Remove Preview for PR#${{ github.event.number }}" \
-            -m "${{ github.event.pull_request.head.sha }}"
-          git push
-
-      - name: Delete Environment
-        run: |
-          curl -X DELETE \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/environments/github-pages-preview/${{ github.event.number }}"

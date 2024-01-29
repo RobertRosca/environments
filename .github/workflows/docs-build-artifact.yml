@@ -6,7 +6,6 @@ on:
 jobs:
   build-and-upload:
     runs-on: ubuntu-latest
-    if: github.event.action != 'closed'
     steps:
       - uses: actions/checkout@v3
 
