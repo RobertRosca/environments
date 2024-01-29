@@ -1,0 +1,30 @@
+name: Build Docs with Hatch/MkDocs
+
+on:
+  workflow_call:
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    if: github.event.action != 'closed'
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+          cache: "pip"
+
+      - name: Setup
+        run: |
+          python3 -m pip install hatch
+          hatch env create
+          hatch env show
+
+      - name: Hatch Build
+        run: hatch run build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./site
