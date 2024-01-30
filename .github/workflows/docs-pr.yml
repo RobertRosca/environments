@@ -2,15 +2,18 @@ name: Docs - PR
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, closed]
 
 env:
   GIT_COMMITTER_NAME: github-actions[bot]
   GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
   GIT_AUTHOR_NAME: github-actions[bot]
   GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+  URL: https://${{ github.repository_owner }}.github.io/${{github.event.repository.name}}/pr/${{ github.event.number }}
 
 jobs:
   build-and-upload:
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,17 +55,53 @@ jobs:
             -m "${{ github.event.pull_request.head.sha }}"
           git push
 
-  comment:
+  comment-deployed:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    env:
-      url: https://${{ github.repository_owner }}.github.io/${{github.event.repository.name}}/pr/${{ github.event.number }}
     needs: deploy
     steps:
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: |
-            View preview here - ${{ env.url }}
+            View preview here - ${{ env.URL }}
 
             Build for ${{ github.event.pull_request.head.sha }}
+
+  remove-preview-files:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed'
+    outputs:
+      hash: ${{ steps.commit.outputs.hash }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+
+      - name: Remove Preview
+        run: |
+          git rm -rf pr/${{ github.event.number }}
+
+      - name: Commit and Push
+        id: commit
+        run: |
+          git commit \
+            -m "Remove Preview for PR#${{ github.event.number }}" \
+            -m "${{ github.event.pull_request.head.sha }}"
+          git push
+          echo "hash=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+  comment-closed:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    needs: remove-preview-files
+    steps:
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            ~~View preview here - ${{ env.URL }}~~
+
+            ~~Build for ${{ github.event.pull_request.head.sha }}~~
+
+            Preview removed on merge/PR close with ${{ needs.remove-preview-files.outputs.hash }}
