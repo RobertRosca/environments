@@ -71,18 +71,21 @@ jobs:
           mv gh-pages/pr . || mkdir -p pr/${{ github.event.number }}
           rm -rf */.nojekyll */.git */sitemap.xml */sitemap.xml.gz || true
           rm -rf **.css **.css.map **.js **.js.map || true
-          echo "## Changes for PR#${{ github.event.number }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "```diff" >> "$GITHUB_STEP_SUMMARY"
-          diff -bur ./gh-pages ./pr/${{ github.event.number }} >> "$GITHUB_STEP_SUMMARY"
-          echo "```" >> "$GITHUB_STEP_SUMMARY"
+
+          echo "View preview here - ${{ env.URL }}" > COMMENT.md
+          echo "Build for ${{ github.event.pull_request.head.sha }}" >> COMMENT.md
+          echo "" >> COMMENT.md
+          echo "<details>" >> COMMENT.md
+          echo "<summary>Page Changes</summary>" >> COMMENT.md
+          echo "" >> COMMENT.md
+          echo "```diff" >> COMMENT.md
+          diff -bur ./gh-pages ./pr/${{ github.event.number }} >> COMMENT.md
+          echo "```" >> COMMENT.md
+          echo "</details>" >> COMMENT.md
 
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
-          message: |
-            View preview here - ${{ env.URL }}
-
-            Build for ${{ github.event.pull_request.head.sha }}
+          path: COMMENT.md
 
   remove-preview-files:
     runs-on: ubuntu-latest
