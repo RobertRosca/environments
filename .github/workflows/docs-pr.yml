@@ -66,16 +66,16 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - id: changed
+      - name: Summarise Changes
         run: |
           mv gh-pages/pr .
           rm -rf */.nojekyll */.git */.sitemap.xml */.sitemap.xml.gz
           rm -rf **.css **.css.map **.js **.js.map
           echo "## Changes for PR#${{ github.event.number }}" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY
-          echo "```diff" >> "$GITHUB_STEP_SUMMARY"
+          echo "\`\`\`diff" >> "$GITHUB_STEP_SUMMARY"
           diff -bur ./gh-pages ./pr/${{ github.event.number }} >> "$GITHUB_STEP_SUMMARY"
-          echo "```" >> "$GITHUB_STEP_SUMMARY"
+          echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
 
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
