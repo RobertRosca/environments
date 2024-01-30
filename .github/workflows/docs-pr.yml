@@ -71,6 +71,17 @@ jobs:
           mv gh-pages/pr . || mkdir -p pr/${{ github.event.number }}
           rm -rf */.nojekyll */.git */sitemap.xml */sitemap.xml.gz || true
           rm -rf **.css **.css.map **.js **.js.map || true
+          {
+            echo "View preview here - ${{ env.URL }} (build for ${{ github.event.pull_request.head.sha }})"
+            echo ""
+            echo "<details>"
+            echo "<summary>Page Changes</summary>"
+            echo ""
+            echo "```diff"
+            diff -bur ./gh-pages ./pr/${{ github.event.number }}
+            echo "```"
+            echo "</details>"
+          } > COMMENT.md
 
           echo "View preview here - ${{ env.URL }}" > COMMENT.md
           echo "Build for ${{ github.event.pull_request.head.sha }}" >> COMMENT.md
