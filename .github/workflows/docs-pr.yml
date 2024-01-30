@@ -11,7 +11,7 @@ env:
   URL: https://${{ github.repository_owner }}.github.io/${{github.event.repository.name}}/pr/${{ github.event.number }}
 
 concurrency:
-  group: "pages-pr"
+  group: "pages-pr--${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
