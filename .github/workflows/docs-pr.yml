@@ -83,16 +83,10 @@ jobs:
             echo "</details>"
           } > COMMENT.md
 
-          echo "View preview here - ${{ env.URL }}" > COMMENT.md
-          echo "Build for ${{ github.event.pull_request.head.sha }}" >> COMMENT.md
-          echo "" >> COMMENT.md
-          echo "<details>" >> COMMENT.md
-          echo "<summary>Page Changes</summary>" >> COMMENT.md
-          echo "" >> COMMENT.md
-          echo "```diff" >> COMMENT.md
-          diff -bur ./gh-pages ./pr/${{ github.event.number }} >> COMMENT.md
-          echo "```" >> COMMENT.md
-          echo "</details>" >> COMMENT.md
+          ls -la
+          which diff
+          type diff
+          diff -bur ./gh-pages ./pr/${{ github.event.number }}
 
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
