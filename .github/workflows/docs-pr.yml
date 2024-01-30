@@ -60,13 +60,36 @@ jobs:
     permissions:
       pull-requests: write
     needs: deploy
+    outputs:
+      changed: ${{ steps.changed.outputs.changed }}
     steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - id: changed
+        run: |
+          mv gh-pages/pr .
+          rm -rf */.nojekyll */.git */.sitemap.xml */.sitemap.xml.gz
+          export CHANGED=$(diff -bur ./gh-pages ./pr/${{ github.event.number }})
+          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: |
             View preview here - ${{ env.URL }}
 
             Build for ${{ github.event.pull_request.head.sha }}
+
+            <details>
+            <summary>Site changes</summary>
+
+            ```diff
+            ${{ steps.changed.outputs.changed }}
+            ```
+
+            </details>
 
   remove-preview-files:
     runs-on: ubuntu-latest
