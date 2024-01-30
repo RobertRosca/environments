@@ -60,8 +60,6 @@ jobs:
     permissions:
       pull-requests: write
     needs: deploy
-    outputs:
-      changed: ${{ steps.changed.outputs.changed }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -73,7 +71,7 @@ jobs:
           mv gh-pages/pr .
           rm -rf */.nojekyll */.git */.sitemap.xml */.sitemap.xml.gz
           export CHANGED=$(diff -bur ./gh-pages ./pr/${{ github.event.number }})
-          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+          echo "changed=$CHANGED" >> "$GITHUB_ENV"
 
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
@@ -86,7 +84,7 @@ jobs:
             <summary>Site changes</summary>
 
             ```diff
-            ${{ steps.changed.outputs.changed }}
+            ${{ env.changed }}
             ```
 
             </details>
